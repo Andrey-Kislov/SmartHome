@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
 using Andead.SmartHome.UnitOfWork;
 using Andead.SmartHome.UnitOfWork.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -11,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace Andead.SmartHome.Presentation.API
 {
@@ -27,8 +27,28 @@ namespace Andead.SmartHome.Presentation.API
         {
             services.AddControllers();
 
-            var connectionString = Configuration.GetConnectionString("SQLite");
+            var connectionString = Configuration[Constants.CONNECTION_STRING_VARIABLE];
             services.AddSingleton<IRepositoryFactory>(new RepositoryFactory(connectionString));
+
+            services.AddApiVersioning(o =>
+            {
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.DefaultApiVersion = new ApiVersion(1, 0);
+            });
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Version = "v1",
+                        Title = "Smart Home REST API"
+                    });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -37,6 +57,13 @@ namespace Andead.SmartHome.Presentation.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles();
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint($"/swagger/v1/swagger.json", "v1");
+            });
 
             app.UseRouting();
 

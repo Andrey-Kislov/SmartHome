@@ -7,8 +7,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Andead.SmartHome.Presentation.API.Controllers
 {
+    [ApiVersion("1")]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class LogController : ControllerBase
     {
         private readonly ILogger<LogController> _logger;
@@ -30,7 +31,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -49,7 +50,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
     }
