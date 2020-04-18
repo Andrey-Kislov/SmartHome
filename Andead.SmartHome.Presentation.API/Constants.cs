@@ -9,5 +9,6 @@ namespace Andead.SmartHome.Presentation.API
     {
         public const string PREFIX = "SMART_HOME_";
         public const string CONNECTION_STRING_VARIABLE = "CONNECTION_STRING";
+        public const string LISTEN_PORT = "LISTEN_PORT";
     }
 }

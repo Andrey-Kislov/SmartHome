@@ -15,7 +15,8 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "SMART_HOME_CONNECTION_STRING": "Data Source=..\\smart_home.db"
+        "SMART_HOME_CONNECTION_STRING": "Data Source=..\\smart_home.db",
+        "SMART_HOME_LISTEN_PORT": "5080"
       }
     },
     "Andead.SmartHome.Presentation.API": {

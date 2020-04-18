@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -20,6 +21,11 @@ namespace Andead.SmartHome.Presentation.API
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureKestrel((hostingContext, serverOptions) =>
+                    {
+                        var listenPort = hostingContext.Configuration.GetValue(Constants.LISTEN_PORT, 5000);
+                        serverOptions.Listen(IPAddress.Any, listenPort);
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
     }
