@@ -1,0 +1,17 @@
+language: csharp
+mono: none
+sudo: required
+dist: xenial
+dotnet: 3.1
+install:
+  - export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+  - export DOTNET_CLI_TELEMETRY_OPTOUT=1
+  - export DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=0
+script:
+  - dotnet publish ./Andead.SmartHome.Presentation.API --output ./publish -c Release
+deploy:
+  - provider: script
+    script: ./deploy.sh
+    skip_cleanup: true
+    on:
+      branche: master
