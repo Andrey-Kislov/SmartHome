@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using Andead.SmartHome.Presentation.API.Filters;
 using Andead.SmartHome.UnitOfWork;
 using Andead.SmartHome.UnitOfWork.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -30,10 +31,10 @@ namespace Andead.SmartHome.Presentation.API
             var connectionString = Configuration[Constants.CONNECTION_STRING_VARIABLE];
             services.AddSingleton<IRepositoryFactory>(new RepositoryFactory(connectionString));
 
-            services.AddApiVersioning(o =>
+            services.AddApiVersioning(options =>
             {
-                o.AssumeDefaultVersionWhenUnspecified = true;
-                o.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
             });
 
             services.AddSwaggerGen(options =>
@@ -44,6 +45,9 @@ namespace Andead.SmartHome.Presentation.API
                         Version = "v1",
                         Title = "Smart Home REST API"
                     });
+
+                options.OperationFilter<RemoveVersionFromParameter>();
+                options.DocumentFilter<ReplaceVersionWithExactValueInPath>();
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

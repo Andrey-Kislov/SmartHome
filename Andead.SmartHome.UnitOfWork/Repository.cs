@@ -40,7 +40,7 @@ namespace Andead.SmartHome.UnitOfWork
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlite(_connectionString);
+            options.UseNpgsql(_connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -21,6 +21,26 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             _repositoryFactory = repositoryFactory;
         }
 
+        [HttpPost("[action]")]
+        public IActionResult Add(string message)
+        {
+            try
+            {
+                using var repository = _repositoryFactory.Create();
+                repository.Add(new Log
+                {
+                    Message = message
+                });
+                repository.Commit();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("[action]")]
         public IActionResult Get()
         {
