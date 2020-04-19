@@ -1,4 +1,6 @@
 ﻿using System;
+using Andead.SmartHome.Presentation.API.Inerfaces;
+using Andead.SmartHome.Presentation.API.Models;
 using Andead.SmartHome.UnitOfWork.Entities;
 using Andead.SmartHome.UnitOfWork.Extensions;
 using Andead.SmartHome.UnitOfWork.Interfaces;
@@ -10,7 +12,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
     [ApiVersion("1")]
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class LogController : SmartHomeBaseController
+    public class LogController : SmartHomeBaseController, ILogController
     {
         private readonly ILogger<LogController> _logger;
         private readonly IRepositoryFactory _repositoryFactory;

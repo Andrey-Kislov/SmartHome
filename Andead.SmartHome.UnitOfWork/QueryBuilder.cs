@@ -3,7 +3,7 @@ using Andead.SmartHome.UnitOfWork.Interfaces;
 
 namespace Andead.SmartHome.UnitOfWork
 {
-    class QueryBuilder<T> : IQueryBuilder<T> where T : Entity
+    public class QueryBuilder<T> : IQueryBuilder<T> where T : Entity
     {
         protected IQueryable<T> Query { get; }
 
