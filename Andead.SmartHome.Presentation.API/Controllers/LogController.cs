@@ -10,7 +10,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
     [ApiVersion("1")]
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class LogController : ControllerBase
+    public class LogController : SmartHomeBaseController
     {
         private readonly ILogger<LogController> _logger;
         private readonly IRepositoryFactory _repositoryFactory;
@@ -37,7 +37,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex);
             }
         }
 
@@ -51,7 +51,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex);
             }
         }
 
@@ -70,7 +70,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex);
             }
         }
     }

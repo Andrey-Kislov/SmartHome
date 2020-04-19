@@ -26,7 +26,7 @@ namespace Andead.SmartHome.Presentation.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
 
             var connectionString = Configuration[Constants.CONNECTION_STRING_VARIABLE];
             services.AddSingleton<IRepositoryFactory>(new RepositoryFactory(connectionString));
