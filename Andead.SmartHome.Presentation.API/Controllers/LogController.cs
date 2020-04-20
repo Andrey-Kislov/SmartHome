@@ -35,7 +35,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
                 });
                 repository.Commit();
 
-                return Ok();
+                return Ok(null);
             }
             catch (Exception ex)
             {

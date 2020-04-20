@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Andead.SmartHome.UnitOfWork.Mock\Andead.SmartHome.UnitOfWork.Mock.csproj" />
     <ProjectReference Include="..\Andead.SmartHome.UnitOfWork\Andead.SmartHome.UnitOfWork.csproj" />
   </ItemGroup>
 

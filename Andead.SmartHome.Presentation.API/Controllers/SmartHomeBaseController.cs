@@ -15,5 +15,10 @@ namespace Andead.SmartHome.Presentation.API.Controllers
         {
             return base.BadRequest(new CustomApiResponse(exception));
         }
+
+        protected NotFoundObjectResult NotFound(string errorMessage = "Not found")
+        {
+            return base.NotFound(new CustomApiResponse(errorMessage));
+        }
     }
 }

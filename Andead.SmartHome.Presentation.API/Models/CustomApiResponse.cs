@@ -29,5 +29,11 @@ namespace Andead.SmartHome.Presentation.API.Models
             Success = false;
             ErrorMessage = exception.Message;
         }
+
+        public CustomApiResponse(string errorMessage, bool success = false)
+        {
+            Success = success;
+            ErrorMessage = errorMessage;
+        }
     }
 }
