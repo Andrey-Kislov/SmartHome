@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Andead.SmartHome.Presentation.API\Andead.SmartHome.Presentation.API.csproj" />
+    <ProjectReference Include="..\Andead.SmartHome.UnitOfWork.Mock\Andead.SmartHome.UnitOfWork.Mock.csproj" />
   </ItemGroup>
 
 </Project>

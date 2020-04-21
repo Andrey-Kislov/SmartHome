@@ -1,8 +1,10 @@
 using System.Net;
+using Andead.SmartHome.Constants;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MQTTnet.AspNetCore;
 
 namespace Andead.SmartHome.Presentation.API
 {
@@ -17,13 +19,13 @@ namespace Andead.SmartHome.Presentation.API
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    config.AddEnvironmentVariables(prefix: Constants.PREFIX);
+                    config.AddEnvironmentVariables(prefix: Settings.PREFIX);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.ConfigureKestrel((hostingContext, serverOptions) =>
                     {
-                        var listenPort = hostingContext.Configuration.GetValue(Constants.LISTEN_PORT, 5000);
+                        var listenPort = hostingContext.Configuration.GetValue(Settings.LISTEN_PORT, 5000);
                         serverOptions.Listen(IPAddress.Any, listenPort);
                     });
                     webBuilder.UseStartup<Startup>();

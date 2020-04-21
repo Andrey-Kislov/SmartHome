@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/Andead.SmartHome.Presentation.API",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:53201",
       "sslPort": 0
@@ -14,19 +18,21 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
+        "SMART_HOME_LISTEN_PORT": "5080",
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "SMART_HOME_CONNECTION_STRING": "User ID=postgres;Password=postgres;Host=localhost;Port=54320;Database=smarthome;",
-        "SMART_HOME_LISTEN_PORT": "5080"
+        "SMART_HOME_CONNECTION_STRING": "User ID=postgres;Password=postgres;Host=localhost;Port=54320;Database=smarthome;"
       }
     },
-    "Andead.SmartHome.Presentation.API": {
+    "Kestrel (dotnet run)": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/log",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "SMART_HOME_LISTEN_PORT": "5080",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SMART_HOME_CONNECTION_STRING": "User ID=postgres;Password=postgres;Host=localhost;Port=54320;Database=smarthome;",
+        "SMART_HOME_MQTT_SERVER_LISTEN_PORT": "1833"
       },
-      "applicationUrl": "http://localhost:5000"
+      "applicationUrl": "http://localhost:5080/swagger"
     }
   }
 }

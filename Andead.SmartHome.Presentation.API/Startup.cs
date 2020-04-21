@@ -1,6 +1,10 @@
 using System;
 using System.IO;
 using System.Reflection;
+using Andead.SmartHome.Constants;
+using Andead.SmartHome.Mqtt;
+using Andead.SmartHome.Mqtt.Interfaces;
+using Andead.SmartHome.Presentation.API.Extensions;
 using Andead.SmartHome.Presentation.API.Filters;
 using Andead.SmartHome.UnitOfWork;
 using Andead.SmartHome.UnitOfWork.Interfaces;
@@ -28,8 +32,10 @@ namespace Andead.SmartHome.Presentation.API
         {
             services.AddControllers().AddNewtonsoftJson();
 
-            var connectionString = Configuration[Constants.CONNECTION_STRING_VARIABLE];
+            var connectionString = Configuration[Settings.CONNECTION_STRING_VARIABLE];
             services.AddSingleton<IRepositoryFactory>(new RepositoryFactory(connectionString));
+
+            services.AddSingleton(new SystemCancellationToken());
 
             services.AddApiVersioning(options =>
             {
@@ -53,9 +59,14 @@ namespace Andead.SmartHome.Presentation.API
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath);
             });
+
+            foreach (var singletonService in Reflection.GetClassesImplementingInterface<IService>())
+            {
+                services.AddSingleton(singletonService);
+            }
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -77,6 +88,13 @@ namespace Andead.SmartHome.Presentation.API
             {
                 endpoints.MapControllers();
             });
+
+            StartServices(serviceProvider);
+        }
+
+        private void StartServices(IServiceProvider serviceProvider)
+        {
+            serviceProvider.GetRequiredService<MqttService>().Start();
         }
     }
 }

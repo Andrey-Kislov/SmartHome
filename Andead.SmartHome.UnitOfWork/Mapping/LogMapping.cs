@@ -1,10 +1,11 @@
 ﻿using Andead.SmartHome.UnitOfWork.Entities;
+using Andead.SmartHome.UnitOfWork.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Andead.SmartHome.UnitOfWork.Mapping
 {
-    public class LogMapping : IEntityTypeConfiguration<Log>
+    public class LogMapping : IEntityTypeConfiguration<Log>, IEntityMapping
     {
         public void Configure(EntityTypeBuilder<Log> builder)
         {
