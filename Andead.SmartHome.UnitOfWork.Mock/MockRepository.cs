@@ -37,7 +37,7 @@ namespace Andead.SmartHome.UnitOfWork.Mock
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(IEntityMapping)));
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(IRepository)));
         }
     }
 }

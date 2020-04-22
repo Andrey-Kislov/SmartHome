@@ -37,6 +37,7 @@ namespace Andead.SmartHome.Presentation.API.Tests.Tests.Controllers
             var expect = _repository.Get<Log>().ToArray();
 
             Assert.IsTrue((result as OkObjectResult).StatusCode == 200);
+            Assert.IsTrue((response.Result as Log[]).Length > 0);
             Assert.AreEqual(expect.Length, (response.Result as Log[]).Length);
         }
 
