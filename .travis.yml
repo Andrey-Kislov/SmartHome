@@ -13,7 +13,7 @@ script:
   - dotnet test
   - dotnet publish ./Andead.SmartHome.Presentation.API --output ./publish -c Release
   - nvm install lts/*
-  - npm run build
+  - npm run build --prefix Andead.SmartHome.Presentation.API
 deploy:
   - provider: script
     script: ./deploy.sh
