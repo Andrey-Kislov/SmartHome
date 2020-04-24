@@ -28,6 +28,13 @@ namespace Andead.SmartHome.Presentation.API
                         var listenPort = hostingContext.Configuration.GetValue(Settings.LISTEN_PORT, 5000);
                         serverOptions.Listen(IPAddress.Any, listenPort);
                     });
+
+                    webBuilder.ConfigureLogging(logging =>
+                     {
+                         logging.ClearProviders();
+                         logging.AddConsole();
+                     });
+
                     webBuilder.UseStartup<Startup>();
                 });
     }
