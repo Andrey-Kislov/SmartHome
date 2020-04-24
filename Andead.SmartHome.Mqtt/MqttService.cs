@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading;
 using MQTTnet;
 using MQTTnet.Server;
@@ -8,6 +9,9 @@ using System.Collections.Concurrent;
 using MQTTnet.Client.Receiving;
 using Microsoft.Extensions.Configuration;
 using Andead.SmartHome.Constants;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Andead.SmartHome.Mqtt
 {
@@ -17,13 +21,15 @@ namespace Andead.SmartHome.Mqtt
         private readonly Dictionary<string, MqttSubscriber> _subscribers = new Dictionary<string, MqttSubscriber>();
         private readonly SystemCancellationToken _systemCancellationToken;
         private readonly IConfiguration _configuration;
+        private readonly ILogger _logger;
 
         private IMqttServer _mqttServer;
 
-        public MqttService(SystemCancellationToken systemCancellationToken, IConfiguration configuration)
+        public MqttService(SystemCancellationToken systemCancellationToken, IConfiguration configuration, ILogger<MqttService> logger)
         {
             _systemCancellationToken = systemCancellationToken;
             _configuration = configuration;
+            _logger = logger;
         }
 
         public void Dispose()
@@ -67,6 +73,23 @@ namespace Andead.SmartHome.Mqtt
                     if (message == null || cancellationToken.IsCancellationRequested)
                         return;
 
+                    var payload = Encoding.ASCII.GetString(message.ApplicationMessage.Payload);
+
+                    _logger.LogInformation($"{message.ApplicationMessage.Topic}: {payload}");
+
+                    try
+                    {
+                        var json = JObject.Parse(payload);
+                        var click = json.GetValue("click");
+
+                        if (click != null)
+                        {
+                            _logger.LogInformation($"Clicked: {click}");
+                        }
+                    }
+                    catch (JsonReaderException)
+                    { }
+                    
                     var affectedSubscribers = new List<MqttSubscriber>();
                     lock (_subscribers)
                     {

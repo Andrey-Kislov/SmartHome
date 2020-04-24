@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Andead.SmartHome.UnitOfWork
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Andead.SmartHome.Constants", "Andead.SmartHome.Constants\Andead.SmartHome.Constants.csproj", "{B18A55B6-735E-4B0C-9E4D-FBE6F1F6A811}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Andead.SmartHome.Workflow", "Andead.SmartHome.Workflow\Andead.SmartHome.Workflow.csproj", "{F425DD74-2EA6-4192-B069-31D83BCA0412}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Andead.SmartHome.Workflow.Tests", "Andead.SmartHome.Workflow.Tests\Andead.SmartHome.Workflow.Tests.csproj", "{61A0FECF-2C7A-4CAC-B533-31FA47EDDBA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{B18A55B6-735E-4B0C-9E4D-FBE6F1F6A811}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B18A55B6-735E-4B0C-9E4D-FBE6F1F6A811}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B18A55B6-735E-4B0C-9E4D-FBE6F1F6A811}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F425DD74-2EA6-4192-B069-31D83BCA0412}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F425DD74-2EA6-4192-B069-31D83BCA0412}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F425DD74-2EA6-4192-B069-31D83BCA0412}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F425DD74-2EA6-4192-B069-31D83BCA0412}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61A0FECF-2C7A-4CAC-B533-31FA47EDDBA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61A0FECF-2C7A-4CAC-B533-31FA47EDDBA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61A0FECF-2C7A-4CAC-B533-31FA47EDDBA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61A0FECF-2C7A-4CAC-B533-31FA47EDDBA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

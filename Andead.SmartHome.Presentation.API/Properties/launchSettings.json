@@ -30,9 +30,9 @@
         "SMART_HOME_LISTEN_PORT": "5080",
         "ASPNETCORE_ENVIRONMENT": "Development",
         "SMART_HOME_CONNECTION_STRING": "User ID=postgres;Password=postgres;Host=localhost;Port=54320;Database=smarthome;",
-        "SMART_HOME_MQTT_SERVER_LISTEN_PORT": "1833"
+        "SMART_HOME_MQTT_SERVER_LISTEN_PORT": "1883"
       },
-      "applicationUrl": "http://localhost:5080/swagger"
+      "applicationUrl": "http://localhost:5080/"
     }
   }
 }
