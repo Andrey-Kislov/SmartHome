@@ -11,6 +11,7 @@ using Andead.SmartHome.UnitOfWork.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -60,6 +61,11 @@ namespace Andead.SmartHome.Presentation.API
                 options.IncludeXmlComments(xmlPath);
             });
 
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "wwwroot";
+            });
+
             foreach (var singletonService in Reflection.GetClassesImplementingInterface<IService>())
             {
                 services.AddSingleton(singletonService);
@@ -87,6 +93,16 @@ namespace Andead.SmartHome.Presentation.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "src";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
             });
 
             StartServices(serviceProvider);

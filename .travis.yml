@@ -12,6 +12,8 @@ before_script:
 script:
   - dotnet test
   - dotnet publish ./Andead.SmartHome.Presentation.API --output ./publish -c Release
+  - nvm install lts/*
+  - npm run build
 deploy:
   - provider: script
     script: ./deploy.sh
