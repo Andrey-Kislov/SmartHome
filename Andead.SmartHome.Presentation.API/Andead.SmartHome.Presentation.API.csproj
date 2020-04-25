@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Andead.SmartHome.Common\Andead.SmartHome.Common.csproj" />
     <ProjectReference Include="..\Andead.SmartHome.Mqtt\Andead.SmartHome.Mqtt.csproj" />
     <ProjectReference Include="..\Andead.SmartHome.UnitOfWork\Andead.SmartHome.UnitOfWork.csproj" />
   </ItemGroup>

@@ -10,12 +10,16 @@ namespace Andead.SmartHome.Workflow
         private bool _isSuccessed = false;
         private int _timeToLive = 10;
 
-        public IList<IStep> NextSteps { get; } = new List<IStep>();
+        public IList<IStep> NextSteps { get; private set; } = new List<IStep>();
 
         public StepBase()
         { }
 
         public StepBase(IList<IStep> nextSteps)
+        {
+            NextSteps = nextSteps;
+        }
+        public void SetNextSteps(IList<IStep> nextSteps)
         {
             NextSteps = nextSteps;
         }

@@ -11,15 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Andead.SmartHome.Console", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Andead.SmartHome.Presentation.API.Tests", "Andead.SmartHome.Presentation.API.Tests\Andead.SmartHome.Presentation.API.Tests.csproj", "{E122FDC8-D630-4246-9720-56C91CEA17CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Andead.SmartHome.Mqtt", "Andead.SmartHome.Mqtt\Andead.SmartHome.Mqtt.csproj", "{B27E01B8-2381-4915-884E-03A012C822E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Andead.SmartHome.Mqtt", "Andead.SmartHome.Mqtt\Andead.SmartHome.Mqtt.csproj", "{B27E01B8-2381-4915-884E-03A012C822E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Andead.SmartHome.UnitOfWork.Mock", "Andead.SmartHome.UnitOfWork.Mock\Andead.SmartHome.UnitOfWork.Mock.csproj", "{11F0BFE6-A586-4D4F-A7DF-51124E731ED4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Andead.SmartHome.UnitOfWork.Mock", "Andead.SmartHome.UnitOfWork.Mock\Andead.SmartHome.UnitOfWork.Mock.csproj", "{11F0BFE6-A586-4D4F-A7DF-51124E731ED4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Andead.SmartHome.Constants", "Andead.SmartHome.Constants\Andead.SmartHome.Constants.csproj", "{B18A55B6-735E-4B0C-9E4D-FBE6F1F6A811}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Andead.SmartHome.Constants", "Andead.SmartHome.Constants\Andead.SmartHome.Constants.csproj", "{B18A55B6-735E-4B0C-9E4D-FBE6F1F6A811}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Andead.SmartHome.Workflow", "Andead.SmartHome.Workflow\Andead.SmartHome.Workflow.csproj", "{F425DD74-2EA6-4192-B069-31D83BCA0412}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Andead.SmartHome.Workflow", "Andead.SmartHome.Workflow\Andead.SmartHome.Workflow.csproj", "{F425DD74-2EA6-4192-B069-31D83BCA0412}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Andead.SmartHome.Workflow.Tests", "Andead.SmartHome.Workflow.Tests\Andead.SmartHome.Workflow.Tests.csproj", "{61A0FECF-2C7A-4CAC-B533-31FA47EDDBA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Andead.SmartHome.Workflow.Tests", "Andead.SmartHome.Workflow.Tests\Andead.SmartHome.Workflow.Tests.csproj", "{61A0FECF-2C7A-4CAC-B533-31FA47EDDBA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Andead.SmartHome.Common", "Andead.SmartHome.Common\Andead.SmartHome.Common.csproj", "{7AD25B1D-B127-4BDF-9E01-B3A6A9FC09FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{61A0FECF-2C7A-4CAC-B533-31FA47EDDBA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61A0FECF-2C7A-4CAC-B533-31FA47EDDBA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61A0FECF-2C7A-4CAC-B533-31FA47EDDBA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AD25B1D-B127-4BDF-9E01-B3A6A9FC09FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AD25B1D-B127-4BDF-9E01-B3A6A9FC09FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AD25B1D-B127-4BDF-9E01-B3A6A9FC09FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AD25B1D-B127-4BDF-9E01-B3A6A9FC09FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
