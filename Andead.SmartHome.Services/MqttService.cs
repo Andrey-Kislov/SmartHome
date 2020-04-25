@@ -3,7 +3,6 @@ using System.Text;
 using System.Threading;
 using MQTTnet;
 using MQTTnet.Server;
-using Andead.SmartHome.Mqtt.Interfaces;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using MQTTnet.Client.Receiving;
@@ -12,8 +11,10 @@ using Andead.SmartHome.Constants;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Andead.SmartHome.Services.Interfaces;
+using Andead.SmartHome.Mqtt;
 
-namespace Andead.SmartHome.Mqtt
+namespace Andead.SmartHome.Services
 {
     public class MqttService : IService, IDisposable
     {

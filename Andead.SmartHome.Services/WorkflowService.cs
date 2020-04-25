@@ -5,28 +5,29 @@ using Andead.SmartHome.UnitOfWork.Extensions;
 using Andead.SmartHome.UnitOfWork.Interfaces;
 using Andead.SmartHome.Workflow.Interfaces;
 using Andead.SmartHome.Workflow.Steps;
+using Andead.SmartHome.Services.Interfaces;
 
-namespace Andead.SmartHome.Workflow
+namespace Andead.SmartHome.Services
 {
-    public class WorkflowService
+    public class WorkflowService : IService
     {
         private readonly IRepositoryFactory _repositoryFactory;
-        private readonly ILogger _logger;
+        private readonly ILoggerFactory _loggerFactory;
         private IContainer _container;
 
-        public WorkflowService(IRepositoryFactory repositoryFactory, ILogger logger)
+        public WorkflowService(IRepositoryFactory repositoryFactory, ILoggerFactory loggerFactory)
         {
             _repositoryFactory = repositoryFactory;
-            _logger = logger;
+            _loggerFactory = loggerFactory;
         }
 
-        public void Setup()
+        public void Start()
         {
             var builder = new ContainerBuilder();
             builder
                 .RegisterType<LogWorkflowStep>()
                     .Named<IStep>("LogWorkflowStep")
-                    .WithParameter(new TypedParameter(typeof(ILogger<LogWorkflowStep>), _logger));
+                    .WithParameter(new TypedParameter(typeof(ILogger<LogWorkflowStep>), _loggerFactory.CreateLogger<LogWorkflowStep>()));
 
             _container = builder.Build();
         }

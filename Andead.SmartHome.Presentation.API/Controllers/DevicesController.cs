@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using Andead.SmartHome.Constants;
-using Andead.SmartHome.Mqtt;
+using Andead.SmartHome.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Andead.SmartHome.Presentation.API.Controllers

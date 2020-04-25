@@ -3,9 +3,10 @@ using System.IO;
 using System.Reflection;
 using Andead.SmartHome.Constants;
 using Andead.SmartHome.Mqtt;
-using Andead.SmartHome.Mqtt.Interfaces;
 using Andead.SmartHome.Presentation.API.Extensions;
 using Andead.SmartHome.Presentation.API.Filters;
+using Andead.SmartHome.Services;
+using Andead.SmartHome.Services.Interfaces;
 using Andead.SmartHome.UnitOfWork;
 using Andead.SmartHome.UnitOfWork.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -111,6 +112,7 @@ namespace Andead.SmartHome.Presentation.API
         private void StartServices(IServiceProvider serviceProvider)
         {
             serviceProvider.GetRequiredService<MqttService>().Start();
+            serviceProvider.GetRequiredService<WorkflowService>().Start();
         }
     }
 }

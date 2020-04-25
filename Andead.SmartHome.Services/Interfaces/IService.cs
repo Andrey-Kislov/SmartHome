@@ -1,4 +1,4 @@
-﻿namespace Andead.SmartHome.Mqtt.Interfaces
+﻿namespace Andead.SmartHome.Services.Interfaces
 {
     public interface IService
     {

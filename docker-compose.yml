@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 54320:5432
+    expose:
+      - 5432
+  api:
+    image: andead/smarthome.presentation.api
+    depends_on:
+      - db
+    environment:
+      'SMART_HOME_CONNECTION_STRING': 'User ID=postgres;Password=postgres;Host=db;Port=5432;Database=smarthome;'
+      'SMART_HOME_LISTEN_PORT': '5080'
+    ports:
+      - 8081:5080
