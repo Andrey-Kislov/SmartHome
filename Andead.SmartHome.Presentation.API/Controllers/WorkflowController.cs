@@ -44,18 +44,55 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             }
         }
 
-        [HttpGet("[action]")]
-        public IActionResult Test(int workflowId)
+        [HttpPost("step/set")]
+        public IActionResult SetWorkflowStep(long previousStepId, long nextStepId)
         {
             try
             {
-                var steps = _workflowService.GetWorkflowSteps(workflowId);
-                foreach (var step in steps)
+                using var repository = _repositoryFactory.Create();
+                repository.Add(new WorkflowNextStep
                 {
-                    step.Run();
-                }
+                    PreviousStepId = previousStepId,
+                    NextStepId = nextStepId
+                });
 
+                repository.Commit();
                 return Ok(null);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("action/add")]
+        public IActionResult AddWorkflowAction(AddWorkflowActionCommand command)
+        {
+            try
+            {
+                using var repository = _repositoryFactory.Create();
+                repository.Add(new WorkflowAction
+                {
+                    ActionName = command.ActionName,
+                    WorkflowId = command.WorkflowId,
+                    ClassName = command.ClassName
+                });
+
+                repository.Commit();
+                return Ok(null);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult Start(long workflowId)
+        {
+            try
+            {
+                return Ok(_workflowService.StartWorkflow(workflowId));
             }
             catch (Exception ex)
             {

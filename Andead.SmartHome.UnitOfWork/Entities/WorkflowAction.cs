@@ -1,13 +1,11 @@
 ﻿namespace Andead.SmartHome.UnitOfWork.Entities
 {
-    public class WorkflowStep : Entity
+    public class WorkflowAction : Entity
     {
-        public string StepName { get; set; }
+        public string ActionName { get; set; }
 
         public long WorkflowId { get; set; }
 
         public string ClassName { get; set; }
-
-        public bool IsFirstStep { get; set; }
     }
 }

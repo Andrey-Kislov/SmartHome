@@ -1,10 +1,9 @@
 ﻿namespace Andead.SmartHome.Presentation.API.Models
 {
-    public class AddWorkflowStepCommand
+    public class AddWorkflowActionCommand
     {
-        public string StepName { get; set; }
+        public string ActionName { get; set; }
         public long WorkflowId { get; set; }
         public string ClassName { get; set; }
-        public bool IsFirstStep { get; set; }
     }
 }

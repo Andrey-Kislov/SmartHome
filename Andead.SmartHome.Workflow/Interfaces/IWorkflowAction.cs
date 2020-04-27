@@ -1,7 +1,7 @@
 ﻿namespace Andead.SmartHome.Workflow.Interfaces
 {
-    public interface IWorkflow
+    public interface IWorkflowAction
     {
-        bool Start();
+        bool RunAction();
     }
 }

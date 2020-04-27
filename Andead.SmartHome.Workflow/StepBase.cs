@@ -11,6 +11,8 @@ namespace Andead.SmartHome.Workflow
         private int _timeToLive = 10;
 
         public IList<IStep> NextSteps { get; private set; } = new List<IStep>();
+        public long Id { get; set; }
+        public string Name { get; set; }
 
         public StepBase()
         { }

@@ -1,44 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
 using Andead.SmartHome.Workflow.Interfaces;
 
 namespace Andead.SmartHome.Workflow
 {
     public abstract class WorkflowBase : IWorkflow
     {
-        private readonly IList<IStep> _steps = new List<IStep>();
+        private readonly IStep _fistStep;
+        private readonly IWorkflowAction _action;
 
         public WorkflowBase()
         {
         }
 
-        public WorkflowBase(IList<IStep> steps)
+        public WorkflowBase(IStep fistStep, IWorkflowAction action)
         {
-            _steps = steps ?? throw new ArgumentException(nameof(steps));
+            _fistStep = fistStep ?? throw new ArgumentException(nameof(fistStep));
+            _action = action ?? throw new ArgumentException(nameof(action));
         }
 
-        public abstract bool Action();
-
-        public void AddStep(IStep step)
+        public bool Action()
         {
-            _steps.Add(step);
+            return _action.RunAction();
         }
 
         private bool CheckSteps()
         {
-            if (_steps.Count > 0)
+            if (_fistStep != null)
             {
-                _steps[0].SetStarted();
-                var stepResult = _steps[0].Run();
+                _fistStep.SetStarted();
+                var stepResult = _fistStep.Run();
 
                 if (stepResult)
                 {
-                    _steps[0].SetSuccessed();
+                    _fistStep.SetSuccessed();
 
-                    if (_steps.Count == 1)
+                    if (_fistStep.NextSteps.Count == 0)
                         return true;
 
-                    return _steps[0].Next();
+                    return _fistStep.Next();
                 }
             }
 

@@ -8,20 +8,11 @@ namespace Andead.SmartHome.Workflow.Tests
     public class WorkflowTest
     {
         [Test]
-        public void Should_NotBorken_When_NotHaveSteps()
-        {
-            var workflow = new TestWorkflow(new List<TestStep>().ToArray());
-            var result = workflow.Start();
-
-            Assert.IsFalse(result);
-        }
-
-        [Test]
         public void Should_ThrowArgumentException_When_NextSteps_AreNull()
         {
             Assert.Throws<ArgumentException>(() =>
             {
-                var workflow = new TestWorkflow(null);
+                var workflow = new TestWorkflow(null, null);
             });
         }
 
@@ -43,7 +34,8 @@ namespace Andead.SmartHome.Workflow.Tests
                 firstStep
             };
 
-            var workflow = new TestWorkflow(actualMessages, steps.ToArray());
+            var action = new TestAction(actualMessages);
+            var workflow = new TestWorkflow(actualMessages, steps[0], action);
             var result = workflow.Start();
 
             Assert.IsTrue(result);
@@ -74,7 +66,8 @@ namespace Andead.SmartHome.Workflow.Tests
                 thirdStep
             };
 
-            var workflow = new TestWorkflow(actualMessages, steps.ToArray());
+            var action = new TestAction(actualMessages);
+            var workflow = new TestWorkflow(actualMessages, steps[0], action);
             var result = workflow.Start();
 
             Assert.IsTrue(result);
@@ -107,7 +100,8 @@ namespace Andead.SmartHome.Workflow.Tests
                 fourthStep
             };
 
-            var workflow = new TestWorkflow(actualMessages, steps.ToArray());
+            var action = new TestAction(actualMessages);
+            var workflow = new TestWorkflow(actualMessages, steps[0], action);
             var result = workflow.Start();
 
             Assert.IsTrue(result);
@@ -141,7 +135,8 @@ namespace Andead.SmartHome.Workflow.Tests
                 fourthStep
             };
 
-            var workflow = new TestWorkflow(actualMessages, steps.ToArray());
+            var action = new TestAction(actualMessages);
+            var workflow = new TestWorkflow(actualMessages, steps[0], action);
             var result = workflow.Start();
 
             Assert.IsTrue(result);
@@ -173,7 +168,8 @@ namespace Andead.SmartHome.Workflow.Tests
                 fourthStep
             };
 
-            var workflow = new TestWorkflow(actualMessages, steps.ToArray());
+            var action = new TestAction(actualMessages);
+            var workflow = new TestWorkflow(actualMessages, steps[0], action);
             var result = workflow.Start();
 
             Assert.IsFalse(result);
@@ -209,7 +205,8 @@ namespace Andead.SmartHome.Workflow.Tests
                 fifthStep
             };
 
-            var workflow = new TestWorkflow(actualMessages, steps.ToArray());
+            var action = new TestAction(actualMessages);
+            var workflow = new TestWorkflow(actualMessages, steps[0], action);
             var result = workflow.Start();
 
             Assert.IsTrue(result);
@@ -245,7 +242,8 @@ namespace Andead.SmartHome.Workflow.Tests
                 fifthStep
             };
 
-            var workflow = new TestWorkflow(actualMessages, steps.ToArray());
+            var action = new TestAction(actualMessages);
+            var workflow = new TestWorkflow(actualMessages, steps[0], action);
             var result = workflow.Start();
 
             Assert.IsTrue(result);
@@ -282,7 +280,8 @@ namespace Andead.SmartHome.Workflow.Tests
                 fifthStep
             };
 
-            var workflow = new TestWorkflow(actualMessages, steps.ToArray());
+            var action = new TestAction(actualMessages);
+            var workflow = new TestWorkflow(actualMessages, steps[0], action);
             var result = workflow.Start();
 
             Assert.IsTrue(result);
@@ -331,7 +330,8 @@ namespace Andead.SmartHome.Workflow.Tests
                 ninthStep
             };
 
-            var workflow = new TestWorkflow(actualMessages, steps.ToArray());
+            var action = new TestAction(actualMessages);
+            var workflow = new TestWorkflow(actualMessages, steps[0], action);
             var result = workflow.Start();
 
             Assert.IsTrue(result);
@@ -381,7 +381,8 @@ namespace Andead.SmartHome.Workflow.Tests
                 ninthStep
             };
 
-            var workflow = new TestWorkflow(actualMessages, steps.ToArray());
+            var action = new TestAction(actualMessages);
+            var workflow = new TestWorkflow(actualMessages, steps[0], action);
             var result = workflow.Start();
 
             Assert.IsFalse(result);

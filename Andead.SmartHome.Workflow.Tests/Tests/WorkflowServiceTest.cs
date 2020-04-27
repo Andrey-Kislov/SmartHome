@@ -66,27 +66,27 @@ namespace Andead.SmartHome.Workflow.Tests.Tests
             repository.Commit();
         }
 
-        [Test]
-        public void GetWorkflowSteps_Should_ReturnSteps_ByWorkflowId()
-        {
-            var expectedMessages = new List<string>
-            {
-                "This is log workflow step",
-                "This is log workflow step"
-            };
+        //[Test]
+        //public void GetWorkflowSteps_Should_ReturnSteps_ByWorkflowId()
+        //{
+        //    var expectedMessages = new List<string>
+        //    {
+        //        "This is log workflow step",
+        //        "This is log workflow step"
+        //    };
 
-            var service = new WorkflowService(_repositoryFactory, _loggerFactory.Object);
-            service.Start();
+        //    var service = new WorkflowService(_repositoryFactory, _loggerFactory.Object);
+        //    service.Start();
 
-            var steps = service.GetWorkflowSteps(1);
-            Assert.IsTrue(steps.Count == 2);
+        //    var steps = service.GetWorkflowSteps(1);
+        //    Assert.IsTrue(steps.Count == 2);
 
-            foreach (var step in steps)
-            {
-                step.Run();
-            }
+        //    foreach (var step in steps)
+        //    {
+        //        step.Run();
+        //    }
 
-            CollectionAssert.AreEqual(expectedMessages, _actualMessages);
-        }
+        //    CollectionAssert.AreEqual(expectedMessages, _actualMessages);
+        //}
     }
 }

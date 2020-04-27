@@ -1,6 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using NUnit.Framework;
 using Andead.SmartHome.Workflow.Interfaces;
 
 namespace Andead.SmartHome.Workflow.Tests
@@ -9,23 +8,14 @@ namespace Andead.SmartHome.Workflow.Tests
     {
         private readonly BlockingCollection<string> _messages;
 
-        public TestWorkflow(IList<IStep> steps) : base(steps)
+        public TestWorkflow(IStep firstStep, IWorkflowAction action) : base(firstStep, action)
         {
             _messages = new BlockingCollection<string>();
         }
 
-        public TestWorkflow(BlockingCollection<string> messages, IList<IStep> steps) : base(steps)
+        public TestWorkflow(BlockingCollection<string> messages, IStep firstStep, IWorkflowAction action) : base(firstStep, action)
         {
             _messages = messages;
-        }
-
-        public override bool Action()
-        {
-            var message = "Run action";
-            TestContext.WriteLine(message);
-            _messages.Add(message);
-
-            return true;
         }
     }
 }

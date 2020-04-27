@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Andead.SmartHome.UnitOfWork.Interfaces;
 
 namespace Andead.SmartHome.UnitOfWork
@@ -30,6 +31,11 @@ namespace Andead.SmartHome.UnitOfWork
         public T[] ToArray()
         {
             return Query.ToArray();
+        }
+
+        public IQueryBuilder<T> Distinct(IEqualityComparer<T> comparer = null)
+        {
+            return new QueryBuilder<T>((comparer == null) ? Query.Distinct() : Query.Distinct(comparer));
         }
     }
 }

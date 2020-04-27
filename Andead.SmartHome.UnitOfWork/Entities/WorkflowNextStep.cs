@@ -2,8 +2,8 @@
 {
     public class WorkflowNextStep : Entity
     {
-        public int PreviousStepId { get; set; }
+        public long PreviousStepId { get; set; }
 
-        public int NextStepId { get; set; }
+        public long NextStepId { get; set; }
     }
 }
