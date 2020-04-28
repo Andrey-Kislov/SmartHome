@@ -47,7 +47,7 @@ namespace Andead.SmartHome.Services
             return steps.Count(x => x.IsFirstStep) != 1;
         }
 
-        public IStep GetWorkflowSteps(long workflowId)
+        public IStep GetWorkflowSteps(int workflowId)
         {
             using var repository = _repositoryFactory.Create();
             var steps = repository.Get<WorkflowStep>().ByWorkflowId(workflowId).Distinct().ToArray();
@@ -71,7 +71,7 @@ namespace Andead.SmartHome.Services
             return resolvedStep;
         }
 
-        public IWorkflowAction GetWorkflowAction(long workflowId)
+        public IWorkflowAction GetWorkflowAction(int workflowId)
         {
             using var repository = _repositoryFactory.Create();
             var action = repository.Get<WorkflowAction>().ByWorkflowId(workflowId).FirstOrDefault();
@@ -83,7 +83,7 @@ namespace Andead.SmartHome.Services
             return scope.ResolveNamed<IWorkflowAction>(action.ClassName);
         }
 
-        public IWorkflow GetWorkflowById(long workflowId)
+        public IWorkflow GetWorkflowById(int workflowId)
         {
             var steps = GetWorkflowSteps(workflowId);
             var action = GetWorkflowAction(workflowId);
@@ -91,7 +91,7 @@ namespace Andead.SmartHome.Services
             return new Workflow.Workflow(steps, action);
         }
 
-        public bool StartWorkflow(long workflowId)
+        public bool StartWorkflow(int workflowId)
         {
             var workflow = GetWorkflowById(workflowId);
             return workflow.Start();

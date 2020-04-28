@@ -5,9 +5,9 @@ namespace Andead.SmartHome.UnitOfWork.Extensions
 {
     public static class WorkflowStepExtensions
     {
-        public static IQueryBuilder<WorkflowStep> ByWorkflowId(this IQueryBuilder<WorkflowStep> repository, long workflowId)
+        public static IQueryBuilder<WorkflowStep> ByWorkflowId(this IQueryBuilder<WorkflowStep> repository, int workflowId)
         {
-            return repository.Condition(new Specification<WorkflowStep>(x => x.WorkflowId == workflowId));
+            return repository.Condition(new Specification<WorkflowStep>(x => x.Workflow.Id == workflowId));
         }
     }
 }

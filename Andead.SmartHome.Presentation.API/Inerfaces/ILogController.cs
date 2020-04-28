@@ -8,6 +8,6 @@ namespace Andead.SmartHome.Presentation.API.Inerfaces
 
         IActionResult Get();
 
-        IActionResult GetById(long id);
+        IActionResult GetById(int id);
     }
 }

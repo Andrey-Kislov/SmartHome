@@ -4,7 +4,9 @@
     {
         public string StepName { get; set; }
 
-        public long WorkflowId { get; set; }
+        public Workflow Workflow { get; set; }
+
+        public int WorkflowId { get; set; }
 
         public string ClassName { get; set; }
 

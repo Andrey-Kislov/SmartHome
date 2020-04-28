@@ -45,7 +45,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
         }
 
         [HttpPost("step/set")]
-        public IActionResult SetWorkflowStep(long previousStepId, long nextStepId)
+        public IActionResult SetWorkflowStep(int previousStepId, int nextStepId)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult Start(long workflowId)
+        public IActionResult Start(int workflowId)
         {
             try
             {

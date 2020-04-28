@@ -58,7 +58,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
         }
 
         [HttpGet("[action]")]
-        public IActionResult GetById(long id)
+        public IActionResult GetById(int id)
         {
             try
             {

@@ -3,7 +3,7 @@
     public class AddWorkflowActionCommand
     {
         public string ActionName { get; set; }
-        public long WorkflowId { get; set; }
+        public int WorkflowId { get; set; }
         public string ClassName { get; set; }
     }
 }

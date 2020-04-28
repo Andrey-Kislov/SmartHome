@@ -5,7 +5,7 @@ namespace Andead.SmartHome.UnitOfWork.Extensions
 {
     public static class LogExtensions
     {
-        public static IQueryBuilder<Log> ById(this IQueryBuilder<Log> repository, long id)
+        public static IQueryBuilder<Log> ById(this IQueryBuilder<Log> repository, int id)
         {
             return repository.Condition(new Specification<Log>(x => x.Id == id));
         }
