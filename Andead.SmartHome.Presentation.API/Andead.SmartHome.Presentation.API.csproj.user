@@ -6,4 +6,9 @@
   <PropertyGroup>
     <ActiveDebugProfile>Kestrel (dotnet run)</ActiveDebugProfile>
   </PropertyGroup>
+  <ItemGroup>
+    <TypeScriptCompile Update="src\components\flow-chart.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+  </ItemGroup>
 </Project>

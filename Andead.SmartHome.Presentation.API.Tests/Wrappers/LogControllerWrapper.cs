@@ -28,7 +28,7 @@ namespace Andead.SmartHome.Presentation.API.Tests.Wrappers
             return result;
         }
 
-        public IActionResult GetById(long id)
+        public IActionResult GetById(int id)
         {
             var result = Execute(_logController.GetById, id);
             return result;

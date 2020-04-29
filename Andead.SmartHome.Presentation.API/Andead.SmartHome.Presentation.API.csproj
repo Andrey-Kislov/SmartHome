@@ -4,7 +4,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="src\App.tsx" />
+    <None Remove="src\components\flow-chart.tsx" />
+    <None Remove="src\index.tsx" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.3" />
@@ -21,6 +28,12 @@
     <ProjectReference Include="..\Andead.SmartHome.Services\Andead.SmartHome.Services.csproj" />
     <ProjectReference Include="..\Andead.SmartHome.UnitOfWork\Andead.SmartHome.UnitOfWork.csproj" />
     <ProjectReference Include="..\Andead.SmartHome.Workflow\Andead.SmartHome.Workflow.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="src\App.tsx" />
+    <TypeScriptCompile Include="src\components\flow-chart.tsx" />
+    <TypeScriptCompile Include="src\index.tsx" />
   </ItemGroup>
 
 
