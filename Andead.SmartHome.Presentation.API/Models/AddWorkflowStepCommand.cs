@@ -4,7 +4,7 @@
     {
         public string StepName { get; set; }
         public int WorkflowId { get; set; }
-        public string ClassName { get; set; }
+        public int WorkflowLogicId { get; set; }
         public bool IsFirstStep { get; set; }
     }
 }

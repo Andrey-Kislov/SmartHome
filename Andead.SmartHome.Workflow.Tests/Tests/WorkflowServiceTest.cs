@@ -46,21 +46,21 @@ namespace Andead.SmartHome.Workflow.Tests.Tests
             {
                 StepName = "Log Step",
                 WorkflowId = 1,
-                ClassName = "LogWorkflowStep",
+                WorkflowLogicId = 1,
                 IsFirstStep = true
             });
             repository.Add(new WorkflowStep
             {
                 StepName = "Log Step 2",
                 WorkflowId = 1,
-                ClassName = "LogWorkflowStep",
+                WorkflowLogicId = 1,
                 IsFirstStep = false
             });
             repository.Add(new WorkflowStep
             {
                 StepName = "Log Step 3",
                 WorkflowId = 2,
-                ClassName = "LogWorkflowStep",
+                WorkflowLogicId = 1,
                 IsFirstStep = true
             });
             repository.Commit();

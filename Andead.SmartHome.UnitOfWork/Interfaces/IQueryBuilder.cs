@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Andead.SmartHome.UnitOfWork.Interfaces
 {
@@ -8,5 +10,6 @@ namespace Andead.SmartHome.UnitOfWork.Interfaces
         T FirstOrDefault();
         T[] ToArray();
         IQueryBuilder<T> Distinct(IEqualityComparer<T> comparer = null);
+        IQueryBuilder<T> Include<TProperty>(Expression<Func<T, TProperty>> expression);
     }
 }

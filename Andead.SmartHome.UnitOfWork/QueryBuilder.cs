@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using Andead.SmartHome.UnitOfWork.Interfaces;
 
 namespace Andead.SmartHome.UnitOfWork
@@ -36,6 +39,11 @@ namespace Andead.SmartHome.UnitOfWork
         public IQueryBuilder<T> Distinct(IEqualityComparer<T> comparer = null)
         {
             return new QueryBuilder<T>((comparer == null) ? Query.Distinct() : Query.Distinct(comparer));
+        }
+
+        public IQueryBuilder<T> Include<TProperty>(Expression<Func<T, TProperty>> expression)
+        {
+            return new QueryBuilder<T>(QueryableExtensions.Include(Query, expression));
         }
     }
 }

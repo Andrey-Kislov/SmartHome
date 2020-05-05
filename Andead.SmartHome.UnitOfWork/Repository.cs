@@ -40,6 +40,7 @@ namespace Andead.SmartHome.UnitOfWork
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
+            options.UseLazyLoadingProxies();
             options.UseNpgsql(_connectionString);
         }
 
@@ -48,6 +49,14 @@ namespace Andead.SmartHome.UnitOfWork
             base.OnModelCreating(modelBuilder);
             //modelBuilder.HasDefaultSchema("smart");
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+
+        public virtual new void Attach<TEntity>(TEntity entity) where TEntity : Entity
+        {
+            bool autoDetectChangesEnabled = ChangeTracker.AutoDetectChangesEnabled;
+            ChangeTracker.AutoDetectChangesEnabled = false;
+            Set<TEntity>().Attach(entity);
+            ChangeTracker.AutoDetectChangesEnabled = autoDetectChangesEnabled;
         }
     }
 }

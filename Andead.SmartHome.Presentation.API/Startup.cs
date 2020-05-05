@@ -9,6 +9,7 @@ using Andead.SmartHome.Services;
 using Andead.SmartHome.Services.Interfaces;
 using Andead.SmartHome.UnitOfWork;
 using Andead.SmartHome.UnitOfWork.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,7 @@ namespace Andead.SmartHome.Presentation.API
 
             services.AddSingleton(new SystemCancellationToken());
 
+            services.AddAutoMapper(typeof(Startup));
             services.AddApiVersioning(options =>
             {
                 options.AssumeDefaultVersionWhenUnspecified = true;

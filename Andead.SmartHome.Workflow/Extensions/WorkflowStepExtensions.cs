@@ -20,7 +20,7 @@ namespace Andead.SmartHome.Workflow.Extensions
             IList<IStep> result = new List<IStep>();
             foreach (var workflowNextStep in workflowNextSteps)
             {
-                var resolvedNextStep = scope.ResolveNamed<IStep>(workflowNextStep.ClassName);
+                var resolvedNextStep = scope.ResolveNamed<IStep>(workflowNextStep.WorkflowLogic.ClassName);
                 resolvedNextStep.Id = workflowNextStep.Id;
                 resolvedNextStep.Name = workflowNextStep.StepName;
                 resolvedNextStep.SetNextSteps(scope, steps, nextSteps);

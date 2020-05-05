@@ -39,5 +39,10 @@ namespace Andead.SmartHome.UnitOfWork.Mock
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(IRepository)));
         }
+
+        void IRepository.Attach<TEntity>(TEntity entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

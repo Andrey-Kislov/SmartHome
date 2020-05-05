@@ -12,6 +12,6 @@ namespace Andead.SmartHome.UnitOfWork.Entities
 
         public bool IsActive { get; set; }
 
-        public IList<WorkflowStep> Steps { get; set; }
+        public virtual IList<WorkflowStep> Steps { get; set; }
     }
 }

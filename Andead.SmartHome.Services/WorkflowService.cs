@@ -62,7 +62,7 @@ namespace Andead.SmartHome.Services
             using var scope = _container.BeginLifetimeScope();
 
             var step = steps.Single(x => x.IsFirstStep);
-            var resolvedStep = scope.ResolveNamed<IStep>(step.ClassName);
+            var resolvedStep = scope.ResolveNamed<IStep>(step.WorkflowLogic.ClassName);
             resolvedStep.Id = step.Id;
             resolvedStep.Name = step.StepName;
 

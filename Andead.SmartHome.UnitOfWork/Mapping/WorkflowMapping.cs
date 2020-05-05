@@ -16,8 +16,6 @@ namespace Andead.SmartHome.UnitOfWork.Mapping
             builder.Property(x => x.DeviceId).HasColumnName("DeviceId");
             builder.Property(x => x.UserId).HasColumnName("UserId");
             builder.Property(x => x.IsActive).HasColumnName("IsActive");
-
-            builder.HasMany(x => x.Steps).WithOne(x => x.Workflow);
         }
     }
 }

@@ -14,10 +14,11 @@ namespace Andead.SmartHome.UnitOfWork.Mapping
             builder.Property(x => x.Id).HasColumnName("Id").ValueGeneratedOnAdd();
             builder.Property(x => x.WorkflowId).HasColumnName("WorkflowId");
             builder.Property(x => x.StepName).HasColumnName("StepName");
-            builder.Property(x => x.ClassName).HasColumnName("ClassName");
+            builder.Property(x => x.WorkflowLogicId).HasColumnName("WorkflowLogicId");
             builder.Property(x => x.IsFirstStep).HasColumnName("IsFirstStep");
 
-            builder.HasOne(x => x.Workflow).WithMany().HasForeignKey(x => x.WorkflowId);
+            builder.HasOne(x => x.Workflow).WithMany(x => x.Steps).HasForeignKey(x => x.WorkflowId);
+            builder.HasOne(x => x.WorkflowLogic).WithMany(x => x.Steps).HasForeignKey(x => x.WorkflowLogicId);
         }
     }
 }
