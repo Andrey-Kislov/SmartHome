@@ -106,27 +106,6 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             }
         }
 
-        [HttpPost("step/set")]
-        public IActionResult SetWorkflowStep(int previousStepId, int nextStepId)
-        {
-            try
-            {
-                using var repository = _repositoryFactory.Create();
-                repository.Add(new WorkflowNextStep
-                {
-                    PreviousStepId = previousStepId,
-                    NextStepId = nextStepId
-                });
-
-                repository.Commit();
-                return Ok(null);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-
         [HttpPost("action/add")]
         public IActionResult AddWorkflowAction(AddWorkflowActionCommand command)
         {
