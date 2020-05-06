@@ -77,6 +77,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
                     StepName = command.StepName,
                     WorkflowId = command.WorkflowId,
                     WorkflowLogicId = command.WorkflowLogicId,
+                    ParentStepId = command.ParentStepId,
                     IsFirstStep = command.IsFirstStep
                 });
 

@@ -9,21 +9,15 @@ namespace Andead.SmartHome.Workflow.Extensions
 {
     public static class WorkflowStepExtensions
     {
-        public static void SetNextSteps(this IStep step, ILifetimeScope scope, WorkflowStep[] steps, WorkflowNextStep[] nextSteps)
+        public static void SetNextSteps(this IStep step, ILifetimeScope scope, WorkflowStep[] steps)
         {
-            var nextStepIds = nextSteps.Where(x => x.PreviousStepId == step.Id).Select(x => x.NextStepId);
-            if (nextStepIds.Count() == 0)
-                return;
-
-            var workflowNextSteps = steps.Where(x => nextStepIds.Contains(x.Id));
-
             IList<IStep> result = new List<IStep>();
-            foreach (var workflowNextStep in workflowNextSteps)
+            foreach (var workflowNextStep in steps)
             {
                 var resolvedNextStep = scope.ResolveNamed<IStep>(workflowNextStep.WorkflowLogic.ClassName);
                 resolvedNextStep.Id = workflowNextStep.Id;
                 resolvedNextStep.Name = workflowNextStep.StepName;
-                resolvedNextStep.SetNextSteps(scope, steps, nextSteps);
+                resolvedNextStep.SetNextSteps(scope, steps.SelectMany(x => x.NextSteps).Distinct().ToArray());
 
                 result.Add(resolvedNextStep);
             }

@@ -1,4 +1,6 @@
-﻿namespace Andead.SmartHome.UnitOfWork.Entities
+﻿using System.Collections.Generic;
+
+namespace Andead.SmartHome.UnitOfWork.Entities
 {
     public class WorkflowStep : Entity
     {
@@ -13,5 +15,11 @@
         public int WorkflowLogicId { get; set; }
 
         public bool IsFirstStep { get; set; }
+
+        public virtual WorkflowStep ParentStep { get; set; }
+
+        public int? ParentStepId { get; set; }
+
+        public virtual IList<WorkflowStep> NextSteps { get; set; }
     }
 }

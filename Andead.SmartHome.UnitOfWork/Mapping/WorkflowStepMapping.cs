@@ -19,6 +19,7 @@ namespace Andead.SmartHome.UnitOfWork.Mapping
 
             builder.HasOne(x => x.Workflow).WithMany(x => x.Steps).HasForeignKey(x => x.WorkflowId);
             builder.HasOne(x => x.WorkflowLogic).WithMany(x => x.Steps).HasForeignKey(x => x.WorkflowLogicId);
+            builder.HasOne(x => x.ParentStep).WithMany(x => x.NextSteps).HasForeignKey(x => x.ParentStepId);
         }
     }
 }

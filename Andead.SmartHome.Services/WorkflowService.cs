@@ -36,10 +36,9 @@ namespace Andead.SmartHome.Services
             return repository.Get<UnitOfWork.Entities.Workflow>().ByUserId(userId, deviceId).ToArray();
         }
 
-        private bool HasLoop(WorkflowStep[] steps, WorkflowNextStep[] nextSteps)
+        private bool HasLoop(WorkflowStep[] steps)
         {
-            var prevStepIds = nextSteps.Select(x => x.PreviousStepId);
-            return steps.All(x => prevStepIds.Contains(x.Id));
+            return steps.All(x => x.ParentStepId.HasValue);
         }
 
         private bool CheckFirstStep(WorkflowStep[] steps)
@@ -50,10 +49,14 @@ namespace Andead.SmartHome.Services
         public IStep GetWorkflowSteps(int workflowId)
         {
             using var repository = _repositoryFactory.Create();
-            var steps = repository.Get<WorkflowStep>().ByWorkflowId(workflowId).Distinct().ToArray();
-            var nextSteps = repository.Get<WorkflowNextStep>().ByStepIds(steps.Select(x => x.Id).ToArray()).Distinct().ToArray();
+            var workflow = repository.Get<UnitOfWork.Entities.Workflow>().ById(workflowId).FirstOrDefault();
 
-            if (HasLoop(steps, nextSteps))
+            if (workflow == null)
+                throw new Exception("Workflow not found");
+
+            var steps = workflow.Steps.ToArray();
+
+            if (HasLoop(steps))
                 throw new Exception("Workflow has loop");
 
             if (CheckFirstStep(steps))
@@ -66,7 +69,7 @@ namespace Andead.SmartHome.Services
             resolvedStep.Id = step.Id;
             resolvedStep.Name = step.StepName;
 
-            resolvedStep.SetNextSteps(scope, steps, nextSteps);
+            resolvedStep.SetNextSteps(scope, steps.SelectMany(x => x.NextSteps).Distinct().ToArray());
 
             return resolvedStep;
         }
