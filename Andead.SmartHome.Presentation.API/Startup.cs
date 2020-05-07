@@ -40,6 +40,9 @@ namespace Andead.SmartHome.Presentation.API
 
             services.AddSingleton(new SystemCancellationToken());
 
+            services.AddMemoryCache();
+            services.AddMiniProfiler(options => options.RouteBasePath = "/profiler").AddEntityFramework();
+
             services.AddAutoMapper(typeof(Startup));
             services.AddApiVersioning(options =>
             {
@@ -83,6 +86,8 @@ namespace Andead.SmartHome.Presentation.API
             }
 
             app.UseStaticFiles();
+
+            app.UseMiniProfiler();
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
