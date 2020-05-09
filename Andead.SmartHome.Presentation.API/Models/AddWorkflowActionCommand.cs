@@ -4,6 +4,6 @@
     {
         public string ActionName { get; set; }
         public int WorkflowId { get; set; }
-        public string ClassName { get; set; }
+        public int WorkflowLogicId { get; set; }
     }
 }

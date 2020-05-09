@@ -114,9 +114,8 @@ namespace Andead.SmartHome.Services
                 catch (OperationCanceledException)
                 {
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
-                    
                 }
             }
         }
@@ -135,7 +134,7 @@ namespace Andead.SmartHome.Services
             catch (OperationCanceledException)
             {
             }
-            catch (Exception exception)
+            catch (Exception)
             {
             }
         }

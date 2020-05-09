@@ -116,7 +116,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
                 {
                     ActionName = command.ActionName,
                     WorkflowId = command.WorkflowId,
-                    ClassName = command.ClassName
+                    WorkflowLogicId = command.WorkflowLogicId
                 });
 
                 repository.Commit();
@@ -129,13 +129,14 @@ namespace Andead.SmartHome.Presentation.API.Controllers
         }
 
         [HttpPost("logic/add")]
-        public IActionResult AddWorkflowLogic(string className)
+        public IActionResult AddWorkflowLogic(string logicName, string className)
         {
             try
             {
                 using var repository = _repositoryFactory.Create();
                 repository.Add(new WorkflowLogic
                 {
+                    LogicName = logicName,
                     ClassName = className
                 });
 

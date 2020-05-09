@@ -46,7 +46,7 @@ namespace Andead.SmartHome.Services
             return steps.Count(x => x.IsFirstStep) != 1;
         }
 
-        public IStep GetWorkflowSteps(int workflowId)
+        public (IStep, IWorkflowAction) GetWorkflowSteps(int workflowId)
         {
             using var repository = _repositoryFactory.Create();
             var workflow = repository.Get<UnitOfWork.Entities.Workflow>().ById(workflowId).FirstOrDefault();
@@ -71,26 +71,14 @@ namespace Andead.SmartHome.Services
 
             resolvedStep.SetNextSteps(scope, steps.SelectMany(x => x.NextSteps).Distinct().ToArray());
 
-            return resolvedStep;
-        }
+            var resolvedAction = scope.ResolveNamed<IWorkflowAction>(workflow.Action.WorkflowLogic.ClassName);
 
-        public IWorkflowAction GetWorkflowAction(int workflowId)
-        {
-            using var repository = _repositoryFactory.Create();
-            var action = repository.Get<WorkflowAction>().ByWorkflowId(workflowId).FirstOrDefault();
-
-            if (action == null)
-                throw new Exception("Not found workflow action");
-
-            using var scope = _container.BeginLifetimeScope();
-            return scope.ResolveNamed<IWorkflowAction>(action.ClassName);
+            return (resolvedStep, resolvedAction);
         }
 
         public IWorkflow GetWorkflowById(int workflowId)
         {
-            var steps = GetWorkflowSteps(workflowId);
-            var action = GetWorkflowAction(workflowId);
-
+            var (steps, action) = GetWorkflowSteps(workflowId);
             return new Workflow.Workflow(steps, action);
         }
 

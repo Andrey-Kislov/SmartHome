@@ -12,6 +12,7 @@ namespace Andead.SmartHome.UnitOfWork.Mapping
 
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("Id").ValueGeneratedOnAdd();
+            builder.Property(x => x.LogicName).HasColumnName("LogicName");
             builder.Property(x => x.ClassName).HasColumnName("ClassName");
         }
     }
