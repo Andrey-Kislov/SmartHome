@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Andead.SmartHome.Presentation.API.Hubs;
 using Andead.SmartHome.Presentation.API.Inerfaces;
 using Andead.SmartHome.Presentation.API.Models;
 using Andead.SmartHome.UnitOfWork.Entities;
 using Andead.SmartHome.UnitOfWork.Extensions;
 using Andead.SmartHome.UnitOfWork.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 
 namespace Andead.SmartHome.Presentation.API.Controllers
@@ -16,18 +19,22 @@ namespace Andead.SmartHome.Presentation.API.Controllers
     {
         private readonly ILogger<LogController> _logger;
         private readonly IRepositoryFactory _repositoryFactory;
+        private readonly IHubContext<LogHub, ILogHub> _hubContext;
 
-        public LogController(ILogger<LogController> logger, IRepositoryFactory repositoryFactory)
+        public LogController(ILogger<LogController> logger, IRepositoryFactory repositoryFactory, IHubContext<LogHub, ILogHub> hubContext)
         {
             _logger = logger;
             _repositoryFactory = repositoryFactory;
+            _hubContext = hubContext;
         }
 
         [HttpPost("[action]")]
-        public IActionResult Add(string message)
+        public async Task<IActionResult> Add(string message)
         {
             try
             {
+                await _hubContext.Clients.All.NewEvent(DateTimeOffset.Now, message);
+
                 using var repository = _repositoryFactory.Create();
                 repository.Add(new Log
                 {

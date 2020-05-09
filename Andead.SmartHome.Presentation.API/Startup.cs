@@ -5,6 +5,7 @@ using Andead.SmartHome.Constants;
 using Andead.SmartHome.Mqtt;
 using Andead.SmartHome.Presentation.API.Extensions;
 using Andead.SmartHome.Presentation.API.Filters;
+using Andead.SmartHome.Presentation.API.Hubs;
 using Andead.SmartHome.Services;
 using Andead.SmartHome.Services.Interfaces;
 using Andead.SmartHome.UnitOfWork;
@@ -34,6 +35,7 @@ namespace Andead.SmartHome.Presentation.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson();
+            services.AddSignalR();
 
             var connectionString = Configuration[Settings.CONNECTION_STRING_VARIABLE];
             services.AddSingleton<IRepositoryFactory>(new RepositoryFactory(connectionString));
@@ -101,6 +103,7 @@ namespace Andead.SmartHome.Presentation.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<LogHub>("/log");
             });
 
             app.UseSpa(spa =>

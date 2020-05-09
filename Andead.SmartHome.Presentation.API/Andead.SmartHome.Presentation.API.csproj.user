@@ -7,6 +7,11 @@
     <ActiveDebugProfile>Kestrel (dotnet run)</ActiveDebugProfile>
   </PropertyGroup>
   <ItemGroup>
+    <TypeScriptCompile Update="src\components\log-events.tsx">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+  </ItemGroup>
+  <ItemGroup>
     <TypeScriptCompile Update="src\components\flow-chart.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>

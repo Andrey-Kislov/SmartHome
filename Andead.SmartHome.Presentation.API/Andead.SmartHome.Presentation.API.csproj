@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="src\App.tsx" />
     <None Remove="src\components\flow-chart.tsx" />
+    <None Remove="src\components\log-events.tsx" />
     <None Remove="src\index.tsx" />
   </ItemGroup>
 
@@ -36,6 +37,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="src\App.tsx" />
     <TypeScriptCompile Include="src\components\flow-chart.tsx" />
+    <TypeScriptCompile Include="src\components\log-events.tsx" />
     <TypeScriptCompile Include="src\index.tsx" />
   </ItemGroup>
 

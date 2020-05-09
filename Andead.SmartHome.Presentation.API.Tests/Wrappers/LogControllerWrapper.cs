@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Andead.SmartHome.Presentation.API.Controllers;
 using Andead.SmartHome.Presentation.API.Inerfaces;
 using Andead.SmartHome.UnitOfWork.Interfaces;
+using System.Threading.Tasks;
 
 namespace Andead.SmartHome.Presentation.API.Tests.Wrappers
 {
@@ -13,10 +14,10 @@ namespace Andead.SmartHome.Presentation.API.Tests.Wrappers
 
         public LogControllerWrapper(IRepositoryFactory repositoryFactory)
         {
-            _logController = new LogController(null, repositoryFactory);
+            _logController = new LogController(null, repositoryFactory, null);
         }
 
-        public IActionResult Add(string message)
+        public Task<IActionResult> Add(string message)
         {
             var result = Execute(_logController.Add, message);
             return result;

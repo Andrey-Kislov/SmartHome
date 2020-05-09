@@ -12,6 +12,7 @@ namespace Andead.SmartHome.UnitOfWork.Mapping
 
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("Id").ValueGeneratedOnAdd();
+            builder.Property(x => x.DateTime).HasColumnName("DateTime").HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(x => x.Message).HasColumnName("Message");
         }
     }

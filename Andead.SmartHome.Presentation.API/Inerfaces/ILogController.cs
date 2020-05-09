@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Andead.SmartHome.Presentation.API.Inerfaces
 {
     public interface ILogController
     {
-        IActionResult Add(string message);
+        Task<IActionResult> Add(string message);
 
         IActionResult Get();
 
