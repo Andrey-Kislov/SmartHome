@@ -5,6 +5,8 @@ using Andead.SmartHome.Presentation.API.Models;
 using Andead.SmartHome.Services;
 using Andead.SmartHome.UnitOfWork.Entities;
 using Andead.SmartHome.UnitOfWork.Interfaces;
+using AutoMapper;
+using EntityFramework.Exceptions.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Andead.SmartHome.Presentation.API.Controllers
@@ -16,11 +18,38 @@ namespace Andead.SmartHome.Presentation.API.Controllers
     {
         private readonly MqttService _mqttService;
         private readonly IRepositoryFactory _repositoryFactory;
+        private readonly IMapper _mapper;
 
-        public DevicesController(MqttService mqttService, IRepositoryFactory repositoryFactory)
+        public DevicesController(MqttService mqttService, IRepositoryFactory repositoryFactory, IMapper mapper)
         {
             _mqttService = mqttService;
             _repositoryFactory = repositoryFactory;
+            _mapper = mapper;
+    }
+
+        [HttpPost("[action]")]
+        public IActionResult AddModel(string modelId, string imageUrl)
+        {
+            try
+            {
+                using var repository = _repositoryFactory.Create();
+                repository.Add(new DeviceModel
+                {
+                    ModelId = modelId,
+                    ImageUrl = imageUrl
+                });
+                repository.Commit();
+
+                return Ok(null);
+            }
+            catch (UniqueConstraintException ex)
+            {
+                return BadRequest(ex);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         [HttpPost("[action]")]
@@ -58,9 +87,9 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             try
             {
                 using var repository = _repositoryFactory.Create();
-                var result = repository.Get<Device>().ToArray();
+                var result = _mapper.Map<DeviceDto[]>(repository.Get<Device>().ToArray());
 
-                return Ok(null);
+                return Ok(result);
             }
             catch (Exception ex)
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Andead.SmartHome.UnitOfWork.Interfaces;
+using EntityFramework.Exceptions.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
 
 namespace Andead.SmartHome.UnitOfWork
@@ -41,6 +42,7 @@ namespace Andead.SmartHome.UnitOfWork
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             options.UseLazyLoadingProxies();
+            options.UseExceptionProcessor();
             options.UseNpgsql(_connectionString);
         }
 

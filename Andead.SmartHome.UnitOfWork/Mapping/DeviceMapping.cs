@@ -25,6 +25,8 @@ namespace Andead.SmartHome.UnitOfWork.Mapping
             builder.Property(x => x.Status).HasColumnName("Status");
 
             builder.HasIndex(x => x.IeeeAddress).IsUnique();
+
+            builder.HasOne(x => x.Model).WithMany().HasForeignKey(x => x.ModelId).HasPrincipalKey(x => x.ModelId);
         }
     }
 }

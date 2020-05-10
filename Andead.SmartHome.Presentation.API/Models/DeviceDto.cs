@@ -1,12 +1,16 @@
-﻿namespace Andead.SmartHome.UnitOfWork.Entities
+﻿namespace Andead.SmartHome.Presentation.API.Models
 {
-    public class Device : Entity
+    public class DeviceDto
     {
+        public int Id { get; set; }
+
         public string DeviceName { get; set; }
 
         public string IeeeAddress { get; set; }
 
         public string FriendlyName { get; set; }
+
+        public string ImageUrl { get; set; }
 
         public string Type { get; set; }
 
@@ -19,8 +23,6 @@
         public string PowerSource { get; set; }
 
         public string ModelId { get; set; }
-
-        public virtual DeviceModel Model { get; set; }
 
         public string Status { get; set; }
     }
