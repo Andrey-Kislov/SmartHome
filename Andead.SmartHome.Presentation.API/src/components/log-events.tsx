@@ -1,13 +1,20 @@
 ﻿import { Component } from 'react';
 import * as signalR from '@microsoft/signalr';
 
-export default class LogEvents extends Component {
-    componentDidMount() {
-        let connection = new signalR.HubConnectionBuilder().withUrl('/log').build();
+interface HubProps {
+    hubUrl: string;
+    onNewEvent: Function;
+}
 
-        connection.on('newEvent', (dateTime: string, message: string) => {
-            console.log(`[${dateTime}]: ${message}`);
-        });
+export default class LogEvents extends Component<HubProps> {
+    componentDidMount() {
+        let connection = new signalR.HubConnectionBuilder().withUrl(this.props.hubUrl).build();
+
+        //connection.on('newEvent', (dateTime: string, message: string) => {
+        //    console.log(`[${dateTime}]: ${message}`);
+        //});
+
+        connection.on('newEvent', (...args: any[]) => this.props.onNewEvent(...args));
 
         connection.start()
             .then(() => console.log(`Connected to hub`))

@@ -21,9 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Andead.SmartHome.Workflow",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Andead.SmartHome.Workflow.Tests", "Andead.SmartHome.Workflow.Tests\Andead.SmartHome.Workflow.Tests.csproj", "{61A0FECF-2C7A-4CAC-B533-31FA47EDDBA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Andead.SmartHome.Common", "Andead.SmartHome.Common\Andead.SmartHome.Common.csproj", "{7AD25B1D-B127-4BDF-9E01-B3A6A9FC09FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Andead.SmartHome.Common", "Andead.SmartHome.Common\Andead.SmartHome.Common.csproj", "{7AD25B1D-B127-4BDF-9E01-B3A6A9FC09FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Andead.SmartHome.Services", "Andead.SmartHome.Services\Andead.SmartHome.Services.csproj", "{EE81B1DE-7DC3-4446-B449-1FA2C8F45A43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Andead.SmartHome.Services", "Andead.SmartHome.Services\Andead.SmartHome.Services.csproj", "{EE81B1DE-7DC3-4446-B449-1FA2C8F45A43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Andead.SmartHome.Presentation", "Andead.SmartHome.Presentation\Andead.SmartHome.Presentation.csproj", "{C709E694-708F-4F3A-ACE4-AD4B7B1C1B34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{EE81B1DE-7DC3-4446-B449-1FA2C8F45A43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE81B1DE-7DC3-4446-B449-1FA2C8F45A43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE81B1DE-7DC3-4446-B449-1FA2C8F45A43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C709E694-708F-4F3A-ACE4-AD4B7B1C1B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C709E694-708F-4F3A-ACE4-AD4B7B1C1B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C709E694-708F-4F3A-ACE4-AD4B7B1C1B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C709E694-708F-4F3A-ACE4-AD4B7B1C1B34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

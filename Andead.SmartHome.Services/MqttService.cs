@@ -13,6 +13,13 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Andead.SmartHome.Services.Interfaces;
 using Andead.SmartHome.Mqtt;
+using Microsoft.EntityFrameworkCore.Internal;
+using System.Linq;
+using Andead.SmartHome.UnitOfWork.Interfaces;
+using Andead.SmartHome.UnitOfWork.Entities;
+using Andead.SmartHome.UnitOfWork.Extensions;
+using Microsoft.AspNetCore.SignalR;
+using Andead.SmartHome.Presentation.Hubs;
 
 namespace Andead.SmartHome.Services
 {
@@ -23,14 +30,23 @@ namespace Andead.SmartHome.Services
         private readonly SystemCancellationToken _systemCancellationToken;
         private readonly IConfiguration _configuration;
         private readonly ILogger _logger;
+        private readonly IRepositoryFactory _repositoryFactory;
+        private readonly IHubContext<DeviceStateHub, IDeviceStateHub> _hubContext;
 
         private IMqttServer _mqttServer;
 
-        public MqttService(SystemCancellationToken systemCancellationToken, IConfiguration configuration, ILogger<MqttService> logger)
+        public MqttService(
+            SystemCancellationToken systemCancellationToken,
+            IConfiguration configuration,
+            ILogger<MqttService> logger,
+            IRepositoryFactory repositoryFactory,
+            IHubContext<DeviceStateHub, IDeviceStateHub> hubContext)
         {
             _systemCancellationToken = systemCancellationToken;
             _configuration = configuration;
             _logger = logger;
+            _repositoryFactory = repositoryFactory;
+            _hubContext = hubContext;
         }
 
         public void Dispose()
@@ -60,7 +76,37 @@ namespace Andead.SmartHome.Services
             workerThread.Start();
         }
 
-        private void ProcessIncomingMqttMessages()
+        private string GetIeeeAddress(string payload)
+        {
+            JObject device = null;
+
+            try
+            {
+                var json = JObject.Parse(payload);
+                device = JObject.Parse(json?.GetValue("device")?.ToString() ?? String.Empty);
+            }
+            catch (JsonReaderException)
+            { }
+
+            return device?.GetValue("ieeeAddr")?.ToString() ?? String.Empty;
+        }
+
+        private static readonly string[] TopicsToIgnore =
+        {
+            "/bridge/state",
+            "/bridge/config",
+
+            "/bridge/config/last_seen",
+			"/bridge/config/log_level",
+			"/bridge/config/permit_join",
+			"/bridge/config/remove",
+			"/bridge/config/force_remove",
+			"/bridge/config/rename",
+			"/bridge/configure",
+			"/bridge/ota_update"
+		};
+
+        private async void ProcessIncomingMqttMessages()
         {
             var cancellationToken = _systemCancellationToken.Token;
 
@@ -74,39 +120,68 @@ namespace Andead.SmartHome.Services
                     if (message == null || cancellationToken.IsCancellationRequested)
                         return;
 
+                    if (TopicsToIgnore.Any(x => message.ApplicationMessage.Topic.EndsWith(x)))
+                        continue;
+
                     var payload = Encoding.ASCII.GetString(message.ApplicationMessage.Payload);
 
-                    _logger.LogInformation($"{message.ApplicationMessage.Topic}: {payload}");
+                    var ieeeAddress = GetIeeeAddress(payload);
+                    _logger.LogInformation($"{ieeeAddress}: {payload}");
 
-                    try
+                    using var repository = _repositoryFactory.Create();
+                    var device = repository.Get<Device>().ByIeeeAddress(ieeeAddress).FirstOrDefault();
+
+                    if (device != null)
                     {
                         var json = JObject.Parse(payload);
-                        var click = json.GetValue("click");
 
-                        if (click != null)
+                        foreach (var attribute in device.Model.Attributes)
                         {
-                            _logger.LogInformation($"Clicked: {click}");
-                        }
-                    }
-                    catch (JsonReaderException)
-                    { }
-                    
-                    var affectedSubscribers = new List<MqttSubscriber>();
-                    lock (_subscribers)
-                    {
-                        foreach (var subscriber in _subscribers.Values)
-                        {
-                            if (subscriber.IsFilterMatch(message.ApplicationMessage.Topic))
+                            var attributeValue = json.GetValue(attribute.AttributeName)?.ToString();
+                            if (!string.IsNullOrEmpty(attributeValue))
                             {
-                                affectedSubscribers.Add(subscriber);
+                                await _hubContext.Clients.All.NewEvent(DateTimeOffset.Now, device.Id, attribute.Id, attributeValue);
+
+                                repository.Add(new ZigbeeEvent
+                                {
+                                    DeviceId = device.Id,
+                                    DeviceAttributeId = attribute.Id,
+                                    DeviceAttributeValue = attributeValue
+                                });
+                                repository.Commit();
                             }
                         }
                     }
 
-                    foreach (var subscriber in affectedSubscribers)
-                    {
-                        TryNotifySubscriber(subscriber, message);
-                    }
+                    //try
+                    //{
+                    //    var json = JObject.Parse(payload);
+                    //    var click = json.GetValue("click");
+
+                    //    if (click != null)
+                    //    {
+                    //        _logger.LogInformation($"Clicked: {click}");
+                    //    }
+                    //}
+                    //catch (JsonReaderException)
+                    //{ }
+
+                    //var affectedSubscribers = new List<MqttSubscriber>();
+                    //lock (_subscribers)
+                    //{
+                    //    foreach (var subscriber in _subscribers.Values)
+                    //    {
+                    //        if (subscriber.IsFilterMatch(message.ApplicationMessage.Topic))
+                    //        {
+                    //            affectedSubscribers.Add(subscriber);
+                    //        }
+                    //    }
+                    //}
+
+                    //foreach (var subscriber in affectedSubscribers)
+                    //{
+                    //    TryNotifySubscriber(subscriber, message);
+                    //}
                 }
                 catch (ThreadAbortException)
                 {
@@ -114,8 +189,9 @@ namespace Andead.SmartHome.Services
                 catch (OperationCanceledException)
                 {
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _logger.LogError(ex.Message);
                 }
             }
         }
@@ -125,19 +201,7 @@ namespace Andead.SmartHome.Services
             _incomingMessages.Add(eventArgs);
         }
 
-        private void TryNotifySubscriber(MqttSubscriber subscriber, MqttApplicationMessageReceivedEventArgs message)
-        {
-            try
-            {
-                subscriber.Notify(message);
-            }
-            catch (OperationCanceledException)
-            {
-            }
-            catch (Exception)
-            {
-            }
-        }
+        
 
         public void Publish(string topic, byte[] payload)
         {
@@ -149,27 +213,41 @@ namespace Andead.SmartHome.Services
             _mqttServer.PublishAsync(message).GetAwaiter().GetResult();
         }
 
-        public string Subscribe(string uid, string topicFilter, Action<MqttApplicationMessageReceivedEventArgs> callback)
-        {
-            if (string.IsNullOrEmpty(uid))
-            {
-                uid = Guid.NewGuid().ToString("D");
-            }
+        //private void TryNotifySubscriber(MqttSubscriber subscriber, MqttApplicationMessageReceivedEventArgs message)
+        //{
+        //    try
+        //    {
+        //        subscriber.Notify(message);
+        //    }
+        //    catch (OperationCanceledException)
+        //    {
+        //    }
+        //    catch (Exception)
+        //    {
+        //    }
+        //}
 
-            lock (_subscribers)
-            {
-                _subscribers[uid] = new MqttSubscriber(uid, topicFilter, callback);
-            }
+        //public string Subscribe(string uid, string topicFilter, Action<MqttApplicationMessageReceivedEventArgs> callback)
+        //{
+        //    if (string.IsNullOrEmpty(uid))
+        //    {
+        //        uid = Guid.NewGuid().ToString("D");
+        //    }
 
-            return uid;
-        }
+        //    lock (_subscribers)
+        //    {
+        //        _subscribers[uid] = new MqttSubscriber(uid, topicFilter, callback);
+        //    }
 
-        public void Unsubscribe(string uid)
-        {
-            lock (_subscribers)
-            {
-                _subscribers.Remove(uid);
-            }
-        }
+        //    return uid;
+        //}
+
+        //public void Unsubscribe(string uid)
+        //{
+        //    lock (_subscribers)
+        //    {
+        //        _subscribers.Remove(uid);
+        //    }
+        //}
     }
 }

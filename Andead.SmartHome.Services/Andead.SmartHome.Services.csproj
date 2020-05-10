@@ -6,11 +6,13 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="5.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
     <PackageReference Include="MQTTnet.AspNetCore" Version="3.0.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Andead.SmartHome.Mqtt\Andead.SmartHome.Mqtt.csproj" />
+    <ProjectReference Include="..\Andead.SmartHome.Presentation\Andead.SmartHome.Presentation.csproj" />
     <ProjectReference Include="..\Andead.SmartHome.UnitOfWork\Andead.SmartHome.UnitOfWork.csproj" />
     <ProjectReference Include="..\Andead.SmartHome.Workflow\Andead.SmartHome.Workflow.csproj" />
   </ItemGroup>

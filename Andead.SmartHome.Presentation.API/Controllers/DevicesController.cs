@@ -26,16 +26,17 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             _mapper = mapper;
     }
 
-        [HttpPost("[action]")]
-        public IActionResult AddModel(string modelId, string imageUrl)
+        [HttpPost("models/add")]
+        public IActionResult AddModel(AddModelCommand command)
         {
             try
             {
                 using var repository = _repositoryFactory.Create();
                 repository.Add(new DeviceModel
                 {
-                    ModelId = modelId,
-                    ImageUrl = imageUrl
+                    ModelName = command.ModelName,
+                    ModelId = command.ModelId,
+                    ImageUrl = command.ImageUrl
                 });
                 repository.Commit();
 
@@ -47,8 +48,31 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             }
         }
 
-        [HttpPost("[action]")]
-        public IActionResult Add(AddDeviceCommand command)
+        [HttpPost("attributes/add")]
+        public IActionResult AddAttribute(AddAttributeCommand command)
+        {
+            try
+            {
+                using var repository = _repositoryFactory.Create();
+                repository.Add(new DeviceAttribute
+                {
+                    AttributeFriendlyName = command.AttributeFriendlyName,
+                    AttributeName = command.AttributeName,
+                    DeviceModelId = command.DeviceModelId,
+                    AttributeType = command.AttributeType
+                });
+                repository.Commit();
+
+                return Ok(null);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("devices/add")]
+        public IActionResult AddDevice(AddDeviceCommand command)
         {
             try
             {
@@ -64,7 +88,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
                     ManufacturerName = command.ManufacturerName,
                     PowerSource = command.PowerSource,
                     ModelId = command.ModelId,
-                    Status = command.Status,
+                    Status = command.Status
                 });
                 repository.Commit();
 
@@ -76,8 +100,8 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             }
         }
 
-        [HttpGet("[action]")]
-        public IActionResult Get()
+        [HttpGet("devices/get")]
+        public IActionResult GetDevices()
         {
             try
             {
@@ -92,7 +116,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             }
         }
 
-        [HttpPost("[action]")]
+        [HttpPost("devices/set")]
         public IActionResult Set(string deviceName, string message)
         {
             _mqttService.Publish($"{Settings.MQTT_BASE_TOPIC}/{deviceName}/set", Encoding.ASCII.GetBytes(message));

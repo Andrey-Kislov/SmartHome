@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
 
-namespace Andead.SmartHome.Presentation.API.Hubs
+namespace Andead.SmartHome.Presentation.Hubs
 {
     public interface ILogHub
     {

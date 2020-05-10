@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Andead.SmartHome.Presentation.API.Hubs;
 using Andead.SmartHome.Presentation.API.Inerfaces;
 using Andead.SmartHome.Presentation.API.Models;
+using Andead.SmartHome.Presentation.Hubs;
 using Andead.SmartHome.UnitOfWork.Entities;
 using Andead.SmartHome.UnitOfWork.Extensions;
 using Andead.SmartHome.UnitOfWork.Interfaces;

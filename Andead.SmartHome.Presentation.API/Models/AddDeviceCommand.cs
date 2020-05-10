@@ -1,4 +1,6 @@
-﻿namespace Andead.SmartHome.Presentation.API.Models
+﻿using Andead.SmartHome.UnitOfWork.Enums;
+
+namespace Andead.SmartHome.Presentation.API.Models
 {
     public class AddDeviceCommand
     {
@@ -20,6 +22,6 @@
 
         public string ModelId { get; set; }
 
-        public string Status { get; set; }
+        public DeviceStatus Status { get; set; }
     }
 }

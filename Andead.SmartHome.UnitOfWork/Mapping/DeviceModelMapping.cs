@@ -13,6 +13,7 @@ namespace Andead.SmartHome.UnitOfWork.Mapping
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName("Id").ValueGeneratedOnAdd();
 
+            builder.Property(x => x.ModelName).HasColumnName("ModelName");
             builder.Property(x => x.ModelId).HasColumnName("ModelId");
             builder.Property(x => x.ImageUrl).HasColumnName("ImageUrl");
 

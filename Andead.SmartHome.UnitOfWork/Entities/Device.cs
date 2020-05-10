@@ -1,4 +1,6 @@
-﻿namespace Andead.SmartHome.UnitOfWork.Entities
+﻿using Andead.SmartHome.UnitOfWork.Enums;
+
+namespace Andead.SmartHome.UnitOfWork.Entities
 {
     public class Device : Entity
     {
@@ -22,6 +24,6 @@
 
         public virtual DeviceModel Model { get; set; }
 
-        public string Status { get; set; }
+        public DeviceStatus Status { get; set; }
     }
 }

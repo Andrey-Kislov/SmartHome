@@ -5,7 +5,7 @@ using Andead.SmartHome.Constants;
 using Andead.SmartHome.Mqtt;
 using Andead.SmartHome.Presentation.API.Extensions;
 using Andead.SmartHome.Presentation.API.Filters;
-using Andead.SmartHome.Presentation.API.Hubs;
+using Andead.SmartHome.Presentation.Hubs;
 using Andead.SmartHome.Services;
 using Andead.SmartHome.Services.Interfaces;
 using Andead.SmartHome.UnitOfWork;
@@ -104,6 +104,7 @@ namespace Andead.SmartHome.Presentation.API
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<LogHub>("/log");
+                endpoints.MapHub<DeviceStateHub>("/states");
             });
 
             app.UseSpa(spa =>

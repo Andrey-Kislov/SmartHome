@@ -6,8 +6,8 @@ using Andead.SmartHome.Presentation.API.Controllers;
 using Andead.SmartHome.Presentation.API.Inerfaces;
 using Andead.SmartHome.UnitOfWork.Interfaces;
 using System.Threading.Tasks;
-using Andead.SmartHome.Presentation.API.Hubs;
 using Microsoft.AspNetCore.SignalR;
+using Andead.SmartHome.Presentation.Hubs;
 
 namespace Andead.SmartHome.Presentation.API.Tests.Wrappers
 {
