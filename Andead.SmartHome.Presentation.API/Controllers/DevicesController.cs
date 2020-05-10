@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Text;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Andead.SmartHome.Constants;
 using Andead.SmartHome.Presentation.API.Models;
 using Andead.SmartHome.Services;
 using Andead.SmartHome.UnitOfWork.Entities;
 using Andead.SmartHome.UnitOfWork.Interfaces;
-using AutoMapper;
-using EntityFramework.Exceptions.Common;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Andead.SmartHome.Presentation.API.Controllers
 {
@@ -41,10 +40,6 @@ namespace Andead.SmartHome.Presentation.API.Controllers
                 repository.Commit();
 
                 return Ok(null);
-            }
-            catch (UniqueConstraintException ex)
-            {
-                return BadRequest(ex);
             }
             catch (Exception ex)
             {
