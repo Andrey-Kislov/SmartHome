@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Moq;
+using System;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Mvc;
 using Andead.SmartHome.Presentation.API.Controllers;
 using Andead.SmartHome.Presentation.API.Inerfaces;
 using Andead.SmartHome.UnitOfWork.Interfaces;
 using System.Threading.Tasks;
+using Andead.SmartHome.Presentation.API.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Andead.SmartHome.Presentation.API.Tests.Wrappers
 {
@@ -14,7 +17,14 @@ namespace Andead.SmartHome.Presentation.API.Tests.Wrappers
 
         public LogControllerWrapper(IRepositoryFactory repositoryFactory)
         {
-            _logController = new LogController(null, repositoryFactory, null);
+            var logHub = new Mock<IHubContext<LogHub, ILogHub>>();
+            var mockClients = new Mock<IHubClients<ILogHub>>();
+            var mockClientProxy = new Mock<ILogHub>();
+
+            mockClients.Setup(clients => clients.All).Returns(mockClientProxy.Object);
+            logHub.Setup(x => x.Clients).Returns(() => mockClients.Object);
+
+            _logController = new LogController(null, repositoryFactory, logHub.Object);
         }
 
         public Task<IActionResult> Add(string message)

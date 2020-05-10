@@ -6,6 +6,7 @@ using Andead.SmartHome.UnitOfWork.Mock;
 using Andead.SmartHome.Presentation.API.Models;
 using Andead.SmartHome.UnitOfWork.Interfaces;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Andead.SmartHome.Presentation.API.Tests.Tests.Controllers
 {
@@ -61,11 +62,11 @@ namespace Andead.SmartHome.Presentation.API.Tests.Tests.Controllers
         }
 
         [Test]
-        public void Add_Should_Correct_Save_Log_Item()
+        public async Task Add_Should_Correct_Save_Log_Item()
         {
             var logItemMessage = "Test message";
 
-            var result = _logController.Add(logItemMessage);
+            var result = await _logController.Add(logItemMessage);
             var logItems = _repository.Get<Log>().ToArray();
 
             Assert.IsTrue((result as OkObjectResult).StatusCode == 200);
