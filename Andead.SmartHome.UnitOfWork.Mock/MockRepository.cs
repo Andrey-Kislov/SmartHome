@@ -2,6 +2,7 @@
 using System.Reflection;
 using Andead.SmartHome.UnitOfWork.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Andead.SmartHome.UnitOfWork.Mock
 {
@@ -13,9 +14,9 @@ namespace Andead.SmartHome.UnitOfWork.Mock
             Database.EnsureCreated();
         }
 
-        public virtual new void Add<TEntity>(TEntity item) where TEntity : Entity
+        public virtual new EntityEntry<TEntity> Add<TEntity>(TEntity item) where TEntity : Entity
         {
-            Set<TEntity>().Add(item);
+            return Set<TEntity>().Add(item);
         }
 
         public void Commit()
