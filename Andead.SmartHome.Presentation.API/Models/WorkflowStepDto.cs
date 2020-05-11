@@ -2,6 +2,7 @@
 {
     public class WorkflowStepDto
     {
+        public int Id { get; set; }
         public string StepName { get; set; }
         public int WorkflowId { get; set; }
         public int WorkflowLogicId { get; set; }

@@ -6,7 +6,11 @@ namespace Andead.SmartHome.UnitOfWork.Entities
     {
         public string WorkflowName { get; set; }
 
+        public virtual Device Device { get; set; }
+
         public int DeviceId { get; set; }
+
+        public virtual User User { get; set; }
 
         public int UserId { get; set; }
 

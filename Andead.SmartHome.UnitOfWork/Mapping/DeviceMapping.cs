@@ -27,6 +27,7 @@ namespace Andead.SmartHome.UnitOfWork.Mapping
             builder.HasIndex(x => x.IeeeAddress).IsUnique();
 
             builder.HasOne(x => x.Model).WithMany().HasForeignKey(x => x.ModelId).HasPrincipalKey(x => x.ModelId);
+            builder.HasOne(x => x.User).WithMany(x => x.Devices).HasForeignKey(x => x.UserId);
         }
     }
 }

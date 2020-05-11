@@ -25,5 +25,9 @@ namespace Andead.SmartHome.UnitOfWork.Entities
         public virtual DeviceModel Model { get; set; }
 
         public DeviceStatus Status { get; set; }
+
+        public virtual User User { get; set; }
+
+        public int UserId { get; set; }
     }
 }

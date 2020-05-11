@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Andead.SmartHome.UnitOfWork.Extensions;
 using Andead.SmartHome.UnitOfWork.Interfaces;
 using EntityFramework.Exceptions.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +52,8 @@ namespace Andead.SmartHome.UnitOfWork
             base.OnModelCreating(modelBuilder);
             //modelBuilder.HasDefaultSchema("smart");
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            modelBuilder.Seed();
         }
 
         public virtual new void Attach<TEntity>(TEntity entity) where TEntity : Entity

@@ -7,6 +7,7 @@ using Andead.SmartHome.Presentation.API.Models;
 using Andead.SmartHome.Services;
 using Andead.SmartHome.UnitOfWork.Entities;
 using Andead.SmartHome.UnitOfWork.Interfaces;
+using Andead.SmartHome.UnitOfWork.Extensions;
 
 namespace Andead.SmartHome.Presentation.API.Controllers
 {
@@ -80,6 +81,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
                 repository.Add(new Device
                 {
                     DeviceName = command.DeviceName,
+                    UserId = command.UserId,
                     IeeeAddress = command.IeeeAddress,
                     FriendlyName = command.FriendlyName,
                     Type = command.Type,
@@ -107,6 +109,22 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             {
                 using var repository = _repositoryFactory.Create();
                 var result = _mapper.Map<DeviceDto[]>(repository.Get<Device>().ToArray());
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("devices/get")]
+        public IActionResult GetDevices(int userId)
+        {
+            try
+            {
+                using var repository = _repositoryFactory.Create();
+                var result = _mapper.Map<DeviceDto[]>(repository.Get<Device>().ByUserId(userId).ToArray());
 
                 return Ok(result);
             }

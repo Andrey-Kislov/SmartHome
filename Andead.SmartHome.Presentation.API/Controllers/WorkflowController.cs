@@ -65,6 +65,22 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             }
         }
 
+        [HttpGet("get")]
+        public IActionResult GetWorkflows(int userId, int deviceId)
+        {
+            try
+            {
+                using var repository = _repositoryFactory.Create();
+                var result = _mapper.Map<WorkflowDto[]>(repository.Get<UnitOfWork.Entities.Workflow>().ByUserId(userId, deviceId).ToArray());
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
         [HttpPost("step/add")]
         public IActionResult AddWorkflowStep(AddWorkflowStepCommand command)
         {

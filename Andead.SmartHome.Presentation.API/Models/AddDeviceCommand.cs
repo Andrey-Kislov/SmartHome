@@ -6,6 +6,8 @@ namespace Andead.SmartHome.Presentation.API.Models
     {
         public string DeviceName { get; set; }
 
+        public int UserId { get; set; }
+
         public string IeeeAddress { get; set; }
 
         public string FriendlyName { get; set; }
