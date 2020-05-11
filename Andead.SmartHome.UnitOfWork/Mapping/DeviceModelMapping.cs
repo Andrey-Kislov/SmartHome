@@ -11,7 +11,7 @@ namespace Andead.SmartHome.UnitOfWork.Mapping
             builder.ToTable("DeviceModel");
 
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).HasColumnName("Id").ValueGeneratedOnAdd();
+            builder.Property(x => x.Id).HasColumnName("Id").UseIdentityAlwaysColumn().HasIdentityOptions(startValue: 100);
 
             builder.Property(x => x.ModelName).HasColumnName("ModelName");
             builder.Property(x => x.ModelId).HasColumnName("ModelId");

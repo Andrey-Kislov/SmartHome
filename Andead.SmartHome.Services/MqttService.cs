@@ -20,6 +20,7 @@ using Andead.SmartHome.UnitOfWork.Entities;
 using Andead.SmartHome.UnitOfWork.Extensions;
 using Microsoft.AspNetCore.SignalR;
 using Andead.SmartHome.Presentation.Hubs;
+using Andead.SmartHome.UnitOfWork.Enums;
 
 namespace Andead.SmartHome.Services
 {
@@ -76,7 +77,7 @@ namespace Andead.SmartHome.Services
             workerThread.Start();
         }
 
-        private string GetIeeeAddress(string payload)
+        private string GetDeviceAttribute(string payload, string attribute)
         {
             JObject device = null;
 
@@ -88,7 +89,7 @@ namespace Andead.SmartHome.Services
             catch (JsonReaderException)
             { }
 
-            return device?.GetValue("ieeeAddr")?.ToString() ?? String.Empty;
+            return device?.GetValue(attribute)?.ToString() ?? String.Empty;
         }
 
         private static readonly string[] TopicsToIgnore =
@@ -125,11 +126,40 @@ namespace Andead.SmartHome.Services
 
                     var payload = Encoding.ASCII.GetString(message.ApplicationMessage.Payload);
 
-                    var ieeeAddress = GetIeeeAddress(payload);
+                    var ieeeAddress = GetDeviceAttribute(payload, "ieeeAddr");
                     _logger.LogInformation($"{ieeeAddress}: {payload}");
 
                     using var repository = _repositoryFactory.Create();
                     var device = repository.Get<Device>().ByIeeeAddress(ieeeAddress).FirstOrDefault();
+
+                    if (device == null)
+                    {
+                        var modelId = GetDeviceAttribute(payload, "modelId");
+
+                        var model = repository.Get<DeviceModel>().ByModelId(modelId).FirstOrDefault();
+                        if (model == null)
+                        {
+                            _logger.LogWarning($"Device model '{modelId}' not found!");
+                            continue;
+                        }
+
+                        device = repository.Add(new Device
+                        {
+                            DeviceName = model.ModelName,
+                            UserId = 1,
+                            IeeeAddress = ieeeAddress,
+                            FriendlyName = GetDeviceAttribute(payload, "friendlyName"),
+                            Type = GetDeviceAttribute(payload, "type"),
+                            NetworkAddress = long.TryParse(GetDeviceAttribute(payload, "nwkAddr"), out long nwkAddr) ? nwkAddr : (long?)null,
+                            ManufacturerId = long.TryParse(GetDeviceAttribute(payload, "manufId"), out long manufId) ? manufId : (long?)null,
+                            ManufacturerName = GetDeviceAttribute(payload, "manufName"),
+                            PowerSource = GetDeviceAttribute(payload, "powerSource"),
+                            ModelId = model.ModelId,
+                            Status = GetDeviceAttribute(payload, "status")?.ToLower() == "offline" ? DeviceStatus.Offline : DeviceStatus.Online
+                        }).Entity;
+
+                        repository.Commit();
+                    }
 
                     if (device != null)
                     {

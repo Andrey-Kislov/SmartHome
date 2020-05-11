@@ -49,7 +49,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             }
         }
 
-        [HttpGet("get")]
+        [HttpGet("get/all")]
         public IActionResult GetWorkflows()
         {
             try

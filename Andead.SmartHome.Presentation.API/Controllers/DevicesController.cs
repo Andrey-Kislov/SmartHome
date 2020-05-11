@@ -102,7 +102,7 @@ namespace Andead.SmartHome.Presentation.API.Controllers
             }
         }
 
-        [HttpGet("devices/get")]
+        [HttpGet("devices/get/all")]
         public IActionResult GetDevices()
         {
             try

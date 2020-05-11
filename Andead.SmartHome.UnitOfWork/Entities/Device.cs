@@ -12,9 +12,9 @@ namespace Andead.SmartHome.UnitOfWork.Entities
 
         public string Type { get; set; }
 
-        public long NetworkAddress { get; set; }
+        public long? NetworkAddress { get; set; }
 
-        public long ManufacturerId { get; set; }
+        public long? ManufacturerId { get; set; }
 
         public string ManufacturerName { get; set; }
 

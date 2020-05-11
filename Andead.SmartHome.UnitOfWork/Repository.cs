@@ -4,6 +4,7 @@ using Andead.SmartHome.UnitOfWork.Extensions;
 using Andead.SmartHome.UnitOfWork.Interfaces;
 using EntityFramework.Exceptions.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Andead.SmartHome.UnitOfWork
 {
@@ -18,9 +19,9 @@ namespace Andead.SmartHome.UnitOfWork
             Database.EnsureCreated();
         }
 
-        public virtual new void Add<TEntity>(TEntity item) where TEntity : Entity
+        public virtual new EntityEntry<TEntity> Add<TEntity>(TEntity item) where TEntity : Entity
         {
-            Set<TEntity>().Add(item);
+            return Set<TEntity>().Add(item);
         }
 
         public void Commit()
@@ -53,6 +54,7 @@ namespace Andead.SmartHome.UnitOfWork
             //modelBuilder.HasDefaultSchema("smart");
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
+            modelBuilder.UseSerialColumns();
             modelBuilder.Seed();
         }
 
