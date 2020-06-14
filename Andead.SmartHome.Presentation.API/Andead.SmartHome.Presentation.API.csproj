@@ -8,10 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="src\actions\constants.ts" />
+    <None Remove="src\actions\triggers.ts" />
     <None Remove="src\components\flow-chart.tsx" />
+    <None Remove="src\components\flow-node-actions.tsx" />
+    <None Remove="src\components\flow-node.tsx" />
     <None Remove="src\components\log-events.tsx" />
     <None Remove="src\index.tsx" />
     <None Remove="src\main.tsx" />
+    <None Remove="src\models\chart-node.model.ts" />
+    <None Remove="src\models\chart.model.ts" />
+    <None Remove="src\reducers\index.ts" />
+    <None Remove="src\reducers\triggers.ts" />
+    <None Remove="src\services\triggers.service.ts" />
+    <None Remove="src\store\configure-store.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,10 +45,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="src\actions\constants.ts" />
+    <TypeScriptCompile Include="src\actions\triggers.ts" />
+    <TypeScriptCompile Include="src\components\flow-node-actions.tsx" />
+    <TypeScriptCompile Include="src\components\flow-node.tsx" />
     <TypeScriptCompile Include="src\components\main.tsx" />
     <TypeScriptCompile Include="src\components\flow-chart.tsx" />
     <TypeScriptCompile Include="src\components\log-events.tsx" />
     <TypeScriptCompile Include="src\index.tsx" />
+    <TypeScriptCompile Include="src\models\chart-node.model.ts" />
+    <TypeScriptCompile Include="src\models\chart.model.ts" />
+    <TypeScriptCompile Include="src\reducers\index.ts" />
+    <TypeScriptCompile Include="src\reducers\triggers.ts" />
+    <TypeScriptCompile Include="src\services\triggers.service.ts" />
+    <TypeScriptCompile Include="src\store\configure-store.ts" />
   </ItemGroup>
 
 

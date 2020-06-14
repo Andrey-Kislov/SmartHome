@@ -13,5 +13,7 @@ namespace Andead.SmartHome.UnitOfWork.Entities
         public int DeviceModelId { get; set; }
 
         public AttributeType AttributeType { get; set; }
+
+        public AttributeValueType AttributeValueType { get; set; }
     }
 }
