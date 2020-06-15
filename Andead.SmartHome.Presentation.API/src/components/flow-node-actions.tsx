@@ -2,8 +2,9 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 import { INode } from "@mrblenny/react-flow-chart";
+import Button from "devextreme-react/button";
 
-import { addTrigger } from '../actions/triggers';
+import { addTrigger } from "../actions/triggers";
 import { TriggersService, TriggerType }  from "../services/triggers.service";
 
 interface IFlowNodeActions {
@@ -20,9 +21,11 @@ class _FlowNodeActions extends Component<IFlowNodeActions> {
         return (
             <div>
                 {nodeOutputCount === 0 ?
-                    <input type="button" value="AND" onClick={() => this.props.addAndTrigger(this.props.node)} />
+                    <Button text="AND" onClick={() => this.props.addAndTrigger(this.props.node)} />
+                    //<input type="button" value="AND" onClick={() => this.props.addAndTrigger(this.props.node)} />
                     :
-                    <input type="button" value="OR" onClick={() => this.props.addOrTrigger(this.props.node)} />
+                    <Button text="OR" onClick={() => this.props.addOrTrigger(this.props.node)} />
+                    //<input type="button" value="OR" onClick={() => this.props.addOrTrigger(this.props.node)} />
                 }
             </div>
         );
