@@ -22,10 +22,8 @@ class _FlowNodeActions extends Component<IFlowNodeActions> {
             <div>
                 {nodeOutputCount === 0 ?
                     <Button text="AND" onClick={() => this.props.addAndTrigger(this.props.node)} />
-                    //<input type="button" value="AND" onClick={() => this.props.addAndTrigger(this.props.node)} />
                     :
                     <Button text="OR" onClick={() => this.props.addOrTrigger(this.props.node)} />
-                    //<input type="button" value="OR" onClick={() => this.props.addOrTrigger(this.props.node)} />
                 }
             </div>
         );
