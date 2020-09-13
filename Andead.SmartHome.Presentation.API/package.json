@@ -7,7 +7,7 @@
     "build": "ng build",
     "build-prod": "ng build --prod --output-path ../publish/wwwroot",
     "test": "ng test",
-    "test-prod": "./node_modules/karma/bin/karma karma.conf.js --single-run",
+    "test-prod": "./node_modules/karma/bin/karma start karma.conf.js --single-run",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
