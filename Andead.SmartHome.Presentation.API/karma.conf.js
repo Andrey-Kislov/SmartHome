@@ -30,13 +30,13 @@ module.exports = function (config) {
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
-    autoWatch: process.env.NODE_ENV === "production" ? false : true,
+    autoWatch: true,
     browsers: ['Chrome'],
-    singleRun: process.env.NODE_ENV === "production" ? true : false,
+    singleRun: false,
     restartOnFileChange: true
   });
   
-  if (process.env.NODE_ENV === "production"){
+  if (process.env.TRAVIS){
 	config.browsers = ['Chrome_travis_ci'];
   }
 };
