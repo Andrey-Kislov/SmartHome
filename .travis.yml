@@ -10,7 +10,11 @@ install:
 services:
   - xvfb
 addons:
-  chrome: stable
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 before_script:
   - chmod a+x ./deploy.sh
   - export CHROME_BIN=chromium-browser
@@ -20,6 +24,7 @@ script:
   - dotnet publish ./Andead.SmartHome.Presentation.API --output ./publish -c Release
   - nvm install lts/*
   - npm install --prefix Andead.SmartHome.Presentation.API
+  - npm run test-prod --prefix Andead.SmartHome.Presentation.API
   - npm run build-prod --prefix Andead.SmartHome.Presentation.API
 deploy:
   - provider: script

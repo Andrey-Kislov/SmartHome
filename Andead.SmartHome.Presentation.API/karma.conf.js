@@ -21,9 +21,9 @@ module.exports = function (config) {
       fixWebpackSourcePaths: true
     },
 	customLaunchers: {
-	  Chrome_travis_ci: {
+	  ChromeHeadlessCI: {
 		base: 'ChromeHeadless',
-		flags: ['--no-sandbox', '--headless', '--disable-gpu']
+		flags: ['--no-sandbox']
 	  }
 	},
     reporters: ['progress', 'kjhtml'],
@@ -35,17 +35,4 @@ module.exports = function (config) {
     singleRun: false,
     restartOnFileChange: true
   });
-  
-  if (process.env.TRAVIS){
-	config.browsers = ['Chrome_travis_ci'];
-	
-	config.frameworks = ['jasmine'];
-	
-	config.plugins = [
-      require('karma-jasmine'),
-      require('karma-chrome-launcher'),
-      require('karma-jasmine-html-reporter'),
-      require('karma-coverage-istanbul-reporter')
-    ];
-  }
 };
