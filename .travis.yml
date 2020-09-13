@@ -3,6 +3,8 @@ mono: none
 sudo: required
 dist: xenial
 dotnet: 3.1
+before_install:
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 install:
   - export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
   - export DOTNET_CLI_TELEMETRY_OPTOUT=1
