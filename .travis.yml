@@ -9,6 +9,8 @@ install:
   - export DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=0
 services:
   - xvfb
+addons:
+  chrome: stable
 before_script:
   - chmod a+x ./deploy.sh
   - export CHROME_BIN=chromium-browser
