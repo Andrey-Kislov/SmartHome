@@ -39,7 +39,7 @@ module.exports = function (config) {
   if (process.env.TRAVIS){
 	config.browsers = ['Chrome_travis_ci'];
 	
-	config.frameworks: ['jasmine'];
+	config.frameworks = ['jasmine'];
 	
 	config.plugins = [
       require('karma-jasmine'),
