@@ -112,7 +112,8 @@ namespace Andead.SmartHome.Presentation.API
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:5081");
                 }
             });
 

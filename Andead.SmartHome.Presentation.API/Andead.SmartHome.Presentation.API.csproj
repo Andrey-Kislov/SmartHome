@@ -8,24 +8,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="dist\**" />
+    <Compile Remove="out-tsc\**" />
     <Compile Remove="src\actions\**" />
     <Compile Remove="src\components\**" />
     <Compile Remove="src\models\**" />
     <Compile Remove="src\reducers\**" />
     <Compile Remove="src\services\**" />
     <Compile Remove="src\store\**" />
+    <Content Remove="dist\**" />
+    <Content Remove="out-tsc\**" />
     <Content Remove="src\actions\**" />
     <Content Remove="src\components\**" />
     <Content Remove="src\models\**" />
     <Content Remove="src\reducers\**" />
     <Content Remove="src\services\**" />
     <Content Remove="src\store\**" />
+    <EmbeddedResource Remove="dist\**" />
+    <EmbeddedResource Remove="out-tsc\**" />
     <EmbeddedResource Remove="src\actions\**" />
     <EmbeddedResource Remove="src\components\**" />
     <EmbeddedResource Remove="src\models\**" />
     <EmbeddedResource Remove="src\reducers\**" />
     <EmbeddedResource Remove="src\services\**" />
     <EmbeddedResource Remove="src\store\**" />
+    <None Remove="dist\**" />
+    <None Remove="out-tsc\**" />
     <None Remove="src\actions\**" />
     <None Remove="src\components\**" />
     <None Remove="src\models\**" />
