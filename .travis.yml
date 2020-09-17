@@ -3,8 +3,6 @@ mono: none
 sudo: required
 dist: xenial
 dotnet: 3.1
-before_install:
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 install:
   - export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
   - export DOTNET_CLI_TELEMETRY_OPTOUT=1
@@ -15,7 +13,7 @@ addons:
   chrome: stable
 before_script:
   - chmod a+x ./deploy.sh
-  - export CHROME_BIN=chromium-browser
+  - export CHROME_BIN=/usr/bin/google-chrome
   - export DISPLAY=:99.0
 script:
   - dotnet test
