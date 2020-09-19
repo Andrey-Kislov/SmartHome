@@ -7,14 +7,21 @@ install:
   - export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
   - export DOTNET_CLI_TELEMETRY_OPTOUT=1
   - export DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER=0
+services:
+  - xvfb
+addons:
+  chrome: stable
 before_script:
   - chmod a+x ./deploy.sh
+  - export CHROME_BIN=/usr/bin/google-chrome
+  - export DISPLAY=:99.0
 script:
   - dotnet test
   - dotnet publish ./Andead.SmartHome.Presentation.API --output ./publish -c Release
   - nvm install lts/*
   - npm install --prefix Andead.SmartHome.Presentation.API
-  - npm run build --prefix Andead.SmartHome.Presentation.API
+  - npm run test-prod --prefix Andead.SmartHome.Presentation.API
+  - npm run build-prod --prefix Andead.SmartHome.Presentation.API
 deploy:
   - provider: script
     script: ./deploy.sh

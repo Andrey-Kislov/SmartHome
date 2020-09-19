@@ -1,0 +1,9 @@
+<div class="content" role="main">
+    <div class="card highlight-card card-small">
+        <span>{{ title }} app is running!</span>
+
+        <log-events [hubUrl]="logHubUrl" (onNewEvent)="logHub($event)"></log-events>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -4,24 +4,47 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
-    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>4.0</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="src\actions\constants.ts" />
-    <None Remove="src\actions\triggers.ts" />
-    <None Remove="src\components\flow-chart.tsx" />
-    <None Remove="src\components\flow-node-actions.tsx" />
-    <None Remove="src\components\flow-node.tsx" />
-    <None Remove="src\components\log-events.tsx" />
+    <Compile Remove="dist\**" />
+    <Compile Remove="out-tsc\**" />
+    <Compile Remove="src\actions\**" />
+    <Compile Remove="src\components\**" />
+    <Compile Remove="src\models\**" />
+    <Compile Remove="src\reducers\**" />
+    <Compile Remove="src\services\**" />
+    <Compile Remove="src\store\**" />
+    <Content Remove="dist\**" />
+    <Content Remove="out-tsc\**" />
+    <Content Remove="src\actions\**" />
+    <Content Remove="src\components\**" />
+    <Content Remove="src\models\**" />
+    <Content Remove="src\reducers\**" />
+    <Content Remove="src\services\**" />
+    <Content Remove="src\store\**" />
+    <EmbeddedResource Remove="dist\**" />
+    <EmbeddedResource Remove="out-tsc\**" />
+    <EmbeddedResource Remove="src\actions\**" />
+    <EmbeddedResource Remove="src\components\**" />
+    <EmbeddedResource Remove="src\models\**" />
+    <EmbeddedResource Remove="src\reducers\**" />
+    <EmbeddedResource Remove="src\services\**" />
+    <EmbeddedResource Remove="src\store\**" />
+    <None Remove="dist\**" />
+    <None Remove="out-tsc\**" />
+    <None Remove="src\actions\**" />
+    <None Remove="src\components\**" />
+    <None Remove="src\models\**" />
+    <None Remove="src\reducers\**" />
+    <None Remove="src\services\**" />
+    <None Remove="src\store\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="src\index.tsx" />
     <None Remove="src\main.tsx" />
-    <None Remove="src\models\chart-node.model.ts" />
-    <None Remove="src\models\chart.model.ts" />
-    <None Remove="src\reducers\index.ts" />
-    <None Remove="src\reducers\triggers.ts" />
-    <None Remove="src\services\triggers.service.ts" />
-    <None Remove="src\store\configure-store.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,23 +65,6 @@
     <ProjectReference Include="..\Andead.SmartHome.Services\Andead.SmartHome.Services.csproj" />
     <ProjectReference Include="..\Andead.SmartHome.UnitOfWork\Andead.SmartHome.UnitOfWork.csproj" />
     <ProjectReference Include="..\Andead.SmartHome.Workflow\Andead.SmartHome.Workflow.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="src\actions\constants.ts" />
-    <TypeScriptCompile Include="src\actions\triggers.ts" />
-    <TypeScriptCompile Include="src\components\flow-node-actions.tsx" />
-    <TypeScriptCompile Include="src\components\flow-node.tsx" />
-    <TypeScriptCompile Include="src\components\main.tsx" />
-    <TypeScriptCompile Include="src\components\flow-chart.tsx" />
-    <TypeScriptCompile Include="src\components\log-events.tsx" />
-    <TypeScriptCompile Include="src\index.tsx" />
-    <TypeScriptCompile Include="src\models\chart-node.model.ts" />
-    <TypeScriptCompile Include="src\models\chart.model.ts" />
-    <TypeScriptCompile Include="src\reducers\index.ts" />
-    <TypeScriptCompile Include="src\reducers\triggers.ts" />
-    <TypeScriptCompile Include="src\services\triggers.service.ts" />
-    <TypeScriptCompile Include="src\store\configure-store.ts" />
   </ItemGroup>
 
 
