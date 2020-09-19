@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'smart-home';
+    logHubUrl = '/log';
 
     logHub(logEvent: any[]): void {
         console.log(`${logEvent[0]}: ${logEvent[1]}`);

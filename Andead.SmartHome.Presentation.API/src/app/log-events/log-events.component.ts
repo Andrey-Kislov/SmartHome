@@ -7,13 +7,15 @@ import * as signalR from '@microsoft/signalr';
     styleUrls: ['./log-events.component.scss']
 })
 export class LogEventsComponent implements OnInit {
-
     @Input() hubUrl: string;
     @Output() onNewEvent: EventEmitter<any[]> = new EventEmitter<any[]>();
 
     constructor() { }
 
     ngOnInit(): void {
+        if (!this.hubUrl || !this.onNewEvent)
+            return;
+
         let connection = new signalR.HubConnectionBuilder()
             .withUrl(this.hubUrl)
             .build();
